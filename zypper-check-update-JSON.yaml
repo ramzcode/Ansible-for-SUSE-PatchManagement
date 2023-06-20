@@ -17,17 +17,37 @@
       register: list_package
       when: reg_update_check is not regex("No updates found")
     
+        #    ##Need "xmltodict" pip install xmltodict
+        #    - name: "debug"
+        #      debug:
+        #        msg: "{{list_package.stdout | ansible.utils.from_xml}}"
+
+    - name: Create_JSON
+      set_fact:
+        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('-','_')}}"
+
     - name: "debug"
       debug:
-        msg: "{{list_package.stdout | ansible.utils.from_xml}}"
+        msg: "{{list_pkg.stream.update_status.update_list}}"
 
-          #    - name: "list# update packages"
-          #      shell: |
-          #        zypper -x# lp > /tmp/tmp_ansible_patchlist.xml
-          #        #zypper l#p --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
-          #      register: l#ist_patch
-          #      when: reg_u#pdate_check is not regex("No updates found")
-          #
-          #    - name: "debu#g"
-          #      debug:
-          #        msg: "{{list_patch}}"
+    - name: "set available_updates UUI variable 1/2"
+      set_fact:
+        available_UUID:
+          found_update_count: '{{ (list_pkg | from_json | list if list_pkg | length > 0 else []) | length | int }}'
+
+    - name: "debug"
+      debug:
+        msg: "{{available_UUID}}"
+            #pending_approval_count: '{{ (updatesUUID_report.stdout | from_json | list if updatesUUID_report.stdout | length > 0 else []) |  map(attribute="ApprovalState") | list | select("match", "NotApproved") | list | length | int }}'
+            #updatesUUI: '{{ updatesUUID_report.stdout | from_json | list if updatesUUID_report.stdout | length > 0 else [] }}
+
+            #    - name: "list update packages"
+            #      shell: |
+            #        zypper -x lp
+            #        #zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
+            #      register: list_patch
+            #      when: reg_update_check is not regex("No updates found")
+            #
+            #    - name: "debug"
+            #      debug:
+            #        msg: "{{list_patch.stdout | ansible.utils.from_xml}}"
