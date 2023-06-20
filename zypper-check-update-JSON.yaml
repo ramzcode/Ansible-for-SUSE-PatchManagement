@@ -24,22 +24,24 @@
 
     - name: Create_JSON
       set_fact:
-        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('-','_')}}"
+        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
 
-    - name: "debug"
-      debug:
-        msg: "{{list_pkg.stream.update_status.update_list}}"
+          #    - name: "debug"
+          #      debug:
+          #        msg: "{{list_pkg.stream.update_status.update_list | json_query('update[*].name')}}"
+
+    - name: Create_FinalJSON
+      set_fact:
+        update_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
 
     - name: "set available_updates UUI variable 1/2"
       set_fact:
         available_UUID:
-          found_update_count: '{{ (list_pkg | from_json | list if list_pkg | length > 0 else []) | length | int }}'
+          available_update_count: "{{ update_jsonlist | json_query('update[*].name') | list | length | int }}"
 
     - name: "debug"
       debug:
         msg: "{{available_UUID}}"
-            #pending_approval_count: '{{ (updatesUUID_report.stdout | from_json | list if updatesUUID_report.stdout | length > 0 else []) |  map(attribute="ApprovalState") | list | select("match", "NotApproved") | list | length | int }}'
-            #updatesUUI: '{{ updatesUUID_report.stdout | from_json | list if updatesUUID_report.stdout | length > 0 else [] }}
 
             #    - name: "list update packages"
             #      shell: |
