@@ -16,7 +16,7 @@
 
     - name: "list update packages"
       shell: |
-        zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d'
+        zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
       register: list_patch
 
     - name: "debug"
