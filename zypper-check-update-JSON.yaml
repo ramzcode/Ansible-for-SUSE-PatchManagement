@@ -1,0 +1,33 @@
+---
+- name: "Scan for Updates"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: "Check if Updates available"
+      shell: |
+        zypper lu
+      register: reg_update_check
+
+    - name: "list update packages"
+      shell: |
+        zypper -x lu
+        #zypper lu | sed -ne '/Reading installed packages.../,$ p' | sed '1,3d' | awk -F '|' '{ print $3, $4, $5, $6 }'
+      register: list_package
+      when: reg_update_check is not regex("No updates found")
+    
+    - name: "debug"
+      debug:
+        msg: "{{list_package.stdout | ansible.utils.from_xml}}"
+
+          #    - name: "list# update packages"
+          #      shell: |
+          #        zypper -x# lp > /tmp/tmp_ansible_patchlist.xml
+          #        #zypper l#p --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
+          #      register: l#ist_patch
+          #      when: reg_u#pdate_check is not regex("No updates found")
+          #
+          #    - name: "debu#g"
+          #      debug:
+          #        msg: "{{list_patch}}"
