@@ -22,7 +22,7 @@
         #      debug:
         #        msg: "{{list_package.stdout | ansible.utils.from_xml}}"
 
-    - name: Create_JSON
+    - name: Create_JSON for packages
       set_fact:
         list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
 
@@ -32,24 +32,44 @@
 
     - name: Create_FinalJSON
       set_fact:
-        update_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
+        package_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
 
-    - name: "set available_updates UUI variable 1/2"
+    - name: "set available Pkg var"
       set_fact:
-        available_UUID:
-          available_update_count: "{{ update_jsonlist | json_query('update[*].name') | list | length | int }}"
+        available_pkg:
+          available_pkg_count: "{{ package_jsonlist | json_query('update[*].name') | list | length | int }}"
 
     - name: "debug"
       debug:
-        msg: "{{available_UUID}}"
+        msg: "{{available_pkg}}"
 
-            #    - name: "list update packages"
-            #      shell: |
-            #        zypper -x lp
-            #        #zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
-            #      register: list_patch
-            #      when: reg_update_check is not regex("No updates found")
-            #
-            #    - name: "debug"
-            #      debug:
-            #        msg: "{{list_patch.stdout | ansible.utils.from_xml}}"
+    - name: "list update patches"
+      shell: |
+        zypper -x lp --with-optional
+        #zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
+      register: list_patch
+      when: reg_update_check is not regex("No updates found")
+
+    - name: Create_JSON for patches
+      set_fact:
+        list_patches: "{{list_patch.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
+
+    - name: Create_FinalJSON_PatchList
+      set_fact:
+        patch_jsonlist: "{{list_patches.stream.update_status}}"
+
+    - name: "set available Patch var"
+      set_fact:
+        available_patch:
+          #available_pkgpatch_count: "{{ patch_jsonlist.blocked_update_list | json_query('update[*].name') | list | length | int }}"
+          #available_pkgmgrpatch_count: "{{ patch_jsonlist.update_list | json_query('update[*].name') | list | length | int }}"
+          available_total_patch_count: "{{ (patch_jsonlist.blocked_update_list | json_query('update[*].name') | list | length | int) + (patch_jsonlist.update_list | json_query('update[*].name') | list | length | int) }}"
+
+    - name: "debug"
+      debug:
+        msg: "{{available_patch}}"
+          #
+          #    - name: "debug"
+          #      debug:
+          #        msg: "{{list_patch.stdout | ansible.utils.from_xml}}"
+...
