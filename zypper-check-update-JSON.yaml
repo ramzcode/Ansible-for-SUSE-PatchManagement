@@ -68,6 +68,14 @@
     - name: "debug"
       debug:
         msg: "{{available_patch}}"
+
+    - name: "debug"
+      debug:
+        msg:
+          - "{{patch_jsonlist.blocked_update_list | json_query('update[*].name') | replace('_','-')}}"
+          - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
+
+
           #
           #    - name: "debug"
           #      debug:
