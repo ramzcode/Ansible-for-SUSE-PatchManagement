@@ -58,6 +58,11 @@
       set_fact:
         patch_jsonlist: "{{list_patches.stream.update_status}}"
 
+    - name: Create the JSON fill for conversion
+      copy:
+        content: "{{list_patches.stream.update_status}}"
+        dest: /tmp/JSONdatafromansible
+
     - name: "set available Patch var"
       set_fact:
         available_patch:
@@ -75,7 +80,22 @@
           - "{{patch_jsonlist.blocked_update_list | json_query('update[*].name') | replace('_','-')}}"
           - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
 
+    - name: "Test for Advisory finder"
+      shell: echo {{item.0}},{{item.1}} >> /tmp/temp-update_version.csv
+      with_together:
+        - "{{ package_jsonlist | json_query('update[*].name') | replace('_','-')}}"
+        - "{{ package_jsonlist | json_query('update[*].edition') | replace('_','-')}}"
+      delegate_to: localhost
 
+    - name: "Write PL name to file"
+      shell: "echo {{item.0}} >> /tmp/temp-patchlist.txt && echo {{item.1}} >> /tmp/temp-patchlist.txt && cat /tmp/temp-patchlist.txt | grep -Ev '^$' >> /tmp/temp-finalpatchlist.txt "
+      with_together:
+        - "{{patch_jsonlist.blocked_update_list | json_query('update[*].name') | replace('_','-')}}"
+        - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
+      delegate_to: localhost
+
+        #   - name: "Filter the package from info list"
+        #     shell: cat /tmp/temp-finalpatchlist.txt | grep -E '^\s*firewalld < 0.9.3-150400.8.9.1$'
           #
           #    - name: "debug"
           #      debug:

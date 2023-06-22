@@ -1,0 +1,42 @@
+{
+  "name": "SUSE_SLE_Module_Basesystem_15_SP4_2023_2495",
+  "details": {
+    "arch": "noarch",
+    "category": "recommended",
+    "description": "This update for libzypp fixes the following issues:\n\n_ Fix \"Curl error 92\" when synchronizing SUSE Manager repositories. [bsc#1212187]\n_ Do not unconditionally release a medium if provideFile failed. [bsc#1211661]",
+    "edition": "1",
+    "interactive": "false",
+    "issue_date": {
+      "text": "2023_06_13T13:05:37Z",
+      "time_t": "1686661537"
+    },
+    "issue_list": {
+      "issue": [
+        {
+          "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211661",
+          "id": "1211661",
+          "title": "Signature verification failed for repomd.xml after extra keys download failed",
+          "type": "bugzilla"
+        },
+        {
+          "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212187",
+          "id": "1212187",
+          "title": "L3: SUSE Manager reposync has started failing with \"Curl error 92 Error message: HTTP/2 stream 0 was not closed cleanly\"",
+          "type": "bugzilla"
+        }
+      ]
+    },
+    "kind": "patch",
+    "license": null,
+    "pkgmanager": "true",
+    "restart": "false",
+    "severity": "important",
+    "source": {
+      "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates",
+      "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?uY33FgJwKAyLi5SYHsSetPNFV2a0BHqGiPzhqiReTljsRDN62_VuCFIz5qK_xfWJeR3lCp8plIUy17PrM_PeHGWFal71lmecXmG_tGBUgdJocaEmbAJPj5E_Xo6XhsFmRYFzJDE9NrwL4DDr8_xp7vUTs_4G7A"
+    },
+    "status": "needed",
+    "summary": "Recommended update for libzypp"
+  }
+}
+

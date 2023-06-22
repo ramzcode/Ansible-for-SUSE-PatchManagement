@@ -1,0 +1,887 @@
+{
+    "version": "0.6",
+    "update_list": {
+        "update": [
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_2119": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "important",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This update for salt fixes the following issue:\n\n_ Make sure SaltCacheLoader use correct fileclient (bsc#1199149)\n_ Fixes for Python 3.10\n  * Use the same logic in `_compat.py` and `entrypoints.py` to load the same `importlib.metadata.`",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1655723210",
+                        "text": "2022_06_20T11:06:50Z"
+                    },
+                    "issue_list": {
+                        "issue": {
+                            "type": "bugzilla",
+                            "id": "1199149",
+                            "title": "Prometheus (in SLE) and Prometheus Exporter formula (All distros) failed to apply states in all SSH Minions",
+                            "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199149"
+                        }
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_2304": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "security",
+                    "severity": "important",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Security update for salt",
+                    "description": "This update for salt fixes the following issues:\n\n_ CVE_2022_22967: Fixed missing check for PAM_ACCT_MGM return value that could be used to bypass authentication when using PAM (bsc#1200566)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1657107499",
+                        "text": "2022_07_06T11:38:19Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "cve",
+                                "id": "CVE_2022_22967",
+                                "title": "http://cve.mitre.org/cgi_bin/cvename.cgi?name=CVE_2022_22967",
+                                "href": "http://cve.mitre.org/cgi_bin/cvename.cgi?name=CVE_2022_22967"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1200566",
+                                "title": "VUL_0: EMBARGOED: CVE_2022_22967: salt: missing check for PAM_ACCT_MGM return value",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1200566"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_2573": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libzypp, zypper",
+                    "description": "This update for libzypp, zypper fixes the following issues:\n\nlibzypp:\n\n_ appdata plugin: Pass path to the repodata/ directory inside the cache (bsc#1197684)\n_ zypp_rpm: flush rpm script output buffer before sending endOfScriptTag\n_ PluginRepoverification: initial version hooked into repo::Downloader and repo refresh\n_ Immediately start monitoring the download.transfer_timeout. Do not wait until the first data arrived (bsc#1199042)\n_ singletrans: no dry_run commit if doing just download_only\n_ Work around cases where sat repo.start points to an invalid solvable. May happen if (wrong arch) solvables were \n  removed at the  beginning of the repo.\n_ Fix misplaced #endif SINGLE_RPMTRANS_AS_DEFAULT_FOR_ZYPPER\n\nzypper:\n\n_ Basic JobReport for \"cmdout/monitor\"\n_ versioncmp: if verbose, also print the edition 'parts' which are compared\n_ Make sure MediaAccess is closed on exception (bsc#1194550)\n_ Display plus_content hint conditionally\n_ Honor the NO_COLOR environment variable when auto_detecting whether to use color\n_ Define table columns which should be sorted natural [case insensitive]\n_ lr/ls: Use highlight color on name and alias as well",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1658975067",
+                        "text": "2022_07_28T02:24:27Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1199042",
+                                "title": "(zypper) libcurl hangs on RPi4",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199042"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1194550",
+                                "title": "zypper crashes when installing RPM with 404 URL",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1194550"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1197684",
+                                "title": "[Build 117.1] No Application Data Found in gnome_software \"Explore\" panel.",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1197684"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_3220": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libzypp, zypper",
+                    "description": "This update for libzypp, zypper fixes the following issues:\n\nlibzypp:\n\n_ Improve handling of package locks, allowing to reset the status of its initial state (bsc#1199895)\n_ Fix issues when receiving exceptions from curl_easy_cleanup (bsc#1201092)\n_ Don't auto_flag kernel_firmware as 'reboot_needed' (bsc#1200993)\n_ Remove Medianetwork and its dependent code. First reason for this is that MediaNetwork was just meant as a way to test\n  the new CURL based downloaded. Second the Provide API is going to completely replace the current media backend.\n\nzypper:\n\n_ Truncate the 'Name' column when using `zypper lr`, if the table is wider than the terminal (bsc#1201638)\n_ Reject install/remove modifier without argument (bsc#1201576)\n_ zypper_download: Handle unresolvable arguments as errors\n_ Put signing key supplying repository name in quotes",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1662690656",
+                        "text": "2022_09_09T02:30:56Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1200993",
+                                "title": "CLM filters for removing packages that require a reboot do not filter out all packages",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1200993"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1201576",
+                                "title": "\"zypper rm _\" attempts to remove all packages",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1201576"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1199895",
+                                "title": "PackageKit does not honor zypper package locks",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199895"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1201092",
+                                "title": "Almost any zypper command segfauls",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1201092"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1201638",
+                                "title": "zypper lr output garbled when tty too small",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1201638"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_3188": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This recommended update for salt fixes the following issues:\n\n_ Add support for gpgautoimport in zypperpkg module\n_ Update Salt to work with Jinja >= and <= 3.1.0 (bsc#1198744)\n_ Fix salt.states.file.managed() for follow_symlinks=True and test=True (bsc#1199372)\n_ Make Salt 3004 compatible with pyzmq >= 23.0.0 (bsc#1201082)\n_ Add support for name, pkgs and diff_attr parameters to upgrade function for zypper and yum (bsc#1198489)\n_ Fix ownership of salt thin directory when using the Salt Bundle\n_ Set default target for pip from VENV_PIP_TARGET environment variable\n_ Normalize package names once with pkg.installed/removed using yum (bsc#1195895)\n_ Save log to logfile with docker.build\n_ Use Salt Bundle in dockermod\n_ Ignore errors on reading license files with dpkg_lowpkg (bsc#1197288)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1662623051",
+                        "text": "2022_09_08T07:44:11Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1199372",
+                                "title": "salt wrong return value for test=true if state contains \"contents\"",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199372"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1197288",
+                                "title": "Update package list fails on top of Ubuntu 18 clients",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1197288"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1195895",
+                                "title": "Failed to install Package with .ARCH in the name",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1195895"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1198489",
+                                "title": "Salt function 'pkg.upgrade' ignores 'name=<pacakge>' or 'pkgs=<package>' argument",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1198489"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1201082",
+                                "title": "[Build 20220630] Unable to connect to the salt master publisher at /var/run/salt/master",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1201082"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1198744",
+                                "title": "salt incompatible with python_Jinja2 3.1",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1198744"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_3748": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This update for salt fixes the following issues:\n\n_ Add Amazon EC2 detection for virtual grains (bsc#1195624)\n_ Change the delimiters to prevent possible tracebacks on some packages with dpkg_lowpkg\n_ Fix 'test_ipc' unit test\n_ Fix Syndic authentication errors (bsc#1199562)\n_ Fix state.apply in test mode with file state module on user/group checking (bsc#1202167)\n_ Fix the regression in schedule module released in version 3004 (bsc#1202631)\n_ Handle non_UTF_8 bytes in core grains generation (bsc#1202165)\n_ Make zypperpkg to retry if RPM lock is temporarily unavailable (bsc#1200596)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1666773706",
+                        "text": "2022_10_26T08:41:46Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1202165",
+                                "title": "salt bundle crashes on non_utf8 character in /proc/1/environ",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1202165"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1202167",
+                                "title": "SALT: highstate fails in TEST mode for specific states (without TEST works correctly)",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1202167"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1202631",
+                                "title": "Regression in salt schedule with SLES15 SP4",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1202631"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1199562",
+                                "title": "L3: Salt master syndic does not work: Unable to call _fire_master on any masters",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199562"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1200596",
+                                "title": "Installation of monitoring formula occasionally fails within the automatic client deployment",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1200596"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1195624",
+                                "title": "Wrong virtualization type returned for EC2 VMs",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1195624"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_3564": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "critical",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libzypp, zypper",
+                    "description": "This update for libzypp, zypper fixes the following issues:\n\nlibzypp:\n \n_ Enable 'zck' support for SUSE Linux Enterprise 15 Service Pack 4 and newer (bsc#1189282)\n_ Fix regression leading to `_allow_vendor_change` and `no_allow_vendor_change` options being ignored (bsc#1201972)\n_ Remove migration code that is no longer needed (bsc#1203649)\n_ Store logrotate files in vendor specif directory '/usr/etc/logrotate.d' if so defined\n\nzypper:\n\n_ Fix contradiction in the man page: `__download_in_advance` option is the default behavior\n_ Fix regression leading to `_allow_vendor_change` and `no_allow_vendor_change` options being ignored (bsc#1201972)\n_ Fix tests to use locale \"C.UTF_8\" rather than \"en_US\"\n_ Make sure 'up' respects solver related CLI options (bsc#1201972)\n_ Remove unneeded code to compute the PPP status because it is now auto established\n_ Store logrotate files in vendor specif directory '/usr/etc/logrotate.d' if so defined",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1665497761",
+                        "text": "2022_10_11T14:16:01Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1203649",
+                                "title": "Cleanup %post script code",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203649"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1189282",
+                                "title": "https://bugzilla.suse.com/show_bug.cgi?id=1189282",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1189282"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1201972",
+                                "title": "zypper 1.14.53 ignores (no_)_allow_vendor_change option",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1201972"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2022_4420": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This update for salt fixes the following issues:\n\n_ Pass the context to pillar ext modules\n_ Align Amazon EC2 (Nitro) grains with upstream (bsc#1203685)\n_ Detect module run syntax version\n_ Implement automated patches alignment for the Salt Bundle\n_ Ignore extend declarations from excluded SLS files (bsc#1203886)\n_ Clarify pkg.installed pkg_verify documentation\n_ Enhance capture of error messages for Zypper calls in zypperpkg module\n_ Make pass renderer configurable and fix detected issues\n_ Workaround fopen line buffering for binary mode (bsc#1203834)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1670916333",
+                        "text": "2022_12_13T07:25:33Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1203886",
+                                "title": "L3: Exclude with extend function not working as expected",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203886"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1203834",
+                                "title": "files.py:385: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203834"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1203685",
+                                "title": "Amazon EC2 instances using Nitro Hypervisor are not detected as virtual machines with SP4 Clients",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203685"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_788": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "important",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libsolv, libzypp, zypper",
+                    "description": "This update for libsolv, libzypp, zypper fixes the following issues:\n\nlibsolv:\n\n_ Do not autouninstall SUSE PTF packages\n_ Ensure 'duplinvolvedmap_all' is reset when a solver is reused\n_ Fix \"keep installed\" jobs not disabling \"best update\" rules\n_ New '_P' and '_W' options for `testsolv`\n_ New introspection interface for weak dependencies similar to ruleinfos\n_ Ensure special case file dependencies are written correctly in the testcase writer\n_ Support better info about alternatives\n_ Support decision reason queries\n_ Support merging of related decisions\n_ Support stringification of multiple solvables\n_ Support stringification of ruleinfo, decisioninfo and decision reasons\n\nlibzypp:\n\n_ Avoid calling getsockopt when we know the info already.\n  This patch should fix logging on WSL, getsockopt seems to not be fully supported but the code required it when\n  accepting new socket connections (bsc#1178233)\n_ Avoid redirecting 'history.logfile=/dev/null' into the target\n_ Create '.no_auto_prune' in the package cache dir to prevent auto cleanup of orphaned repositories (bsc#1204956)\n_ Enhance yaml_cpp detection\n_ Improve download of optional files\n_ MultiCurl: Make sure to reset the progress function when falling back.\n_ Properly reset range requests (bsc#1204548)\n_ Removing a PTF without enabled repos should always fail (bsc#1203248)\n  Without enabled repos, the dependent PTF_packages would be removed (not replaced!) as well. \n  To remove a PTF `zypper install __ _PTF` or a dedicated `zypper removeptf PTF` should be used. This will update the\n  installed PTF packages to theit latest version.\n_ Skip media.1/media download for http repo status calc.\n  This patch allows zypp to skip a extra media.1/media download to calculate if a repository needs to be refreshed.\n  This optimisation only takes place if the repo does specify only downloading base urls.\n_ Use a dynamic fallback for BLKSIZE in downloads.\n  When not receiving a blocklist via metalink file from the server MediaMultiCurl used to fallback to a fixed,\n  relatively small BLKSIZE. This patch changes the fallback into a dynamic value based on the filesize using a similar\n  metric as the MirrorCache implementation on the server side.\n_ ProgressData: enforce reporting the INIT||END state (bsc#1206949)\n_ ps: fix service detection on newer Tumbleweed systems (bsc#1205636)\n\n\nzypper:\n\n_ Allow to (re)add a service with the same URL (bsc#1203715)\n_ Bump dependency requirement to libzypp_devel 17.31.7 or greater\n_ Explain outdatedness of repositories\n_ patterns: Avoid dispylaing superfluous System entries (bsc#1205570)\n_ Provide `removeptf` command (bsc#1203249)\n  A remove command which prefers replacing dependant packages to removing them as well.\n  A PTF is typically removed as soon as the fix it provides is applied to the latest official update of the dependant\n  packages. However it is not desired for the dependant packages to be removed together with the PTF, which is what the\n  remove command would do. The `removeptf` command however will aim to replace the dependant packages by their official\n  update versions.\n_ Update man page and explain '.no_auto_prune' (bsc#1204956)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1678991884",
+                        "text": "2023_03_16T18:38:04Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1205570",
+                                "title": "pattern shown as System beside repo",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1205570"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1203249",
+                                "title": "Add a separate zypper command for removing ptfs",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203249"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1204548",
+                                "title": "zypp_plugin_spacewalk: Repositories are refreshed upon every zypper ref",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1204548"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1203248",
+                                "title": "zypper rm ptf_xxxx should always fail",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203248"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1203715",
+                                "title": "zypper serviceadd fails on idempotency check",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1203715"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1178233",
+                                "title": "zypper up does not report any updates in WSL after longer pause",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1178233"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1204956",
+                                "title": "Cached repo packages are deleted",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1204956"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1205636",
+                                "title": "zypper ps _s shows wrong command and no service",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1205636"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1206949",
+                                "title": "[Build 20230107] openQA test fails in yast2_software_management",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1206949"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_346": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This update for salt fixes the following issues:\n\n_ Control the collection of lvm grains via config (bsc#1204939)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1676038021",
+                        "text": "2023_02_10T14:07:01Z"
+                    },
+                    "issue_list": {
+                        "issue": {
+                            "type": "bugzilla",
+                            "id": "1204939",
+                            "title": "venv_salt_minion returning 'base:custom' failed: Jinja variable 'dict object' has no attribute 'machine_id'",
+                            "href": "https://bugzilla.suse.com/show_bug.cgi?id=1204939"
+                        }
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_807": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for salt",
+                    "description": "This update for salt fixes the following issues:\n\n_ Fix problem with detecting PTF packages (bsc#1208691)\n_ Fix pkg.version_cmp on openEuler systems and a few other OS flavors\n_ Make pkg.remove function from zypperpkg module to handle also PTF packages",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1679326010",
+                        "text": "2023_03_20T15:26:50Z"
+                    },
+                    "issue_list": {
+                        "issue": {
+                            "type": "bugzilla",
+                            "id": "1208691",
+                            "title": "Onboarding fail in detecting ptf packages",
+                            "href": "https://bugzilla.suse.com/show_bug.cgi?id=1208691"
+                        }
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_2245": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libzypp, zypper",
+                    "description": "This update for libzypp, zypper fixes the following issues:\n\n_ Installing local RPM packages fails if /usr/bin/find is not installed (bsc#1195633)\n_ multicurl: propagate ssl settings stored in repo url (bsc#1127591)\n_ MediaCurl: Fix endless loop if wrong credentials are stored in credentials.cat (bsc#1210870)\n_ zypp.conf: Introduce 'download.connect_timeout' [60 sec.] (bsc#1208329)\n_ Teach MediaNetwork to retry on HTTP2 errors.\n_ Fix selecting installed patterns from picklist (bsc#1209406)\n_ man: better explanation of __priority",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1684422114",
+                        "text": "2023_05_18T15:01:54Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1195633",
+                                "title": "Installing local RPM packages fails if /usr/bin/find is not installed",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1195633"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1127591",
+                                "title": "zypper option \"ssl_capath\" not working for mirror URLs from metalink file",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1127591"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1210870",
+                                "title": "zypp:Head/zypper: Bug Don't kill valid credentials",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1210870"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1208329",
+                                "title": "Timeout issues with zypper, unable to change value",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1208329"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1209406",
+                                "title": "after update, zypper pt _i shows no patterns",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1209406"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_2585": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "security",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Security update for salt and python_pyzmq",
+                    "description": "This update for salt and python_pyzmq fixes the following issues:\n\nsalt:\n\n_ Update to Salt release version 3006.0 (jsc#PED_4361)\n  * See release notes: https://docs.saltproject.io/en/latest/topics/releases/3006.0.html\n_ Add missing patch after rebase to fix collections Mapping issues\n_ Add python3_looseversion as new dependency for salt\n_ Add python3_packaging as new dependency for salt\n_ Allow entrypoint compatibility for \"importlib_metadata>=5.0.0\" (bsc#1207071)\n_ Avoid conflicts with Salt dependencies versions (bsc#1211612)\n_ Avoid failures due transactional_update module not available in Salt 3006.0 (bsc#1211754)\n_ Create new salt_tests subpackage containing Salt tests\n_ Drop conflictive patch dicarded from upstream\n_ Fix package build with old setuptools versions\n_ Fix SLS rendering error when Jinja macros are used\n_ Fix version detection and avoid building and testing failures\n_ Prevent deadlocks in salt_ssh executions\n_ Require python3_jmespath runtime dependency (bsc#1209233)\n_ Make master_tops compatible with Salt 3000 and older minions (bsc#1212516, bsc#1212517)\n\npython_pyzmq:\n\n_ Update python_pyzmq to version 17.1.2 in LTSS products (bsc#1186945)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1687349722",
+                        "text": "2023_06_21T12:15:22Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "jira",
+                                "id": "MSQA_666",
+                                "title": "https://jira.suse.com/browse/MSQA_666",
+                                "href": "https://jira.suse.com/browse/MSQA_666"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1186945",
+                                "title": "python3_jupyter_console has a missing requirement",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1186945"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1207071",
+                                "title": "[Build 20230111] fails to start salt: AttributeError: 'EntryPoints' object has no attribute 'items'",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1207071"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1209233",
+                                "title": "salt 3005.1: Need to add python3_jmespath to python3_salt's RPM Requires",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1209233"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1211612",
+                                "title": "salt update to 3006 has excessively tight requirements for python_pyzmq",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211612"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1211754",
+                                "title": "SLE Micro 5.x: Module function `transactional_update.pkg_install` is not available",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211754"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212516",
+                                "title": "Salt <= 3000: Empty highstate due to missing compatibility layer with Salt 3006",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212516"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212517",
+                                "title": "Salt <= 3000: Empty highstate due to missing compatibility layer with Salt 3006",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212517"
+                            },
+                            {
+                                "type": "jira",
+                                "id": "PED_4361",
+                                "title": "https://jira.suse.com/browse/PED_4361",
+                                "href": "https://jira.suse.com/browse/PED_4361"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_2571": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "security",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Security update for Salt",
+                    "description": "This update for salt fixes the following issues:\n\nsalt:\n\n_ Update to Salt release version 3006.0 (jsc#PED_4361)\n  * See release notes: https://docs.saltproject.io/en/latest/topics/releases/3006.0.html\n_ Add missing patch after rebase to fix collections Mapping issues\n_ Add python3_looseversion as new dependency for salt\n_ Add python3_packaging as new dependency for salt\n_ Allow entrypoint compatibility for \"importlib_metadata>=5.0.0\" (bsc#1207071)\n_ Avoid conflicts with Salt dependencies versions (bsc#1211612)\n_ Avoid failures due transactional_update module not available in Salt 3006.0 (bsc#1211754)\n_ Create new salt_tests subpackage containing Salt tests\n_ Drop conflictive patch dicarded from upstream\n_ Fix package build with old setuptools versions\n_ Fix SLS rendering error when Jinja macros are used\n_ Fix version detection and avoid building and testing failures\n_ Prevent deadlocks in salt_ssh executions\n_ Require python3_jmespath runtime dependency (bsc#1209233)\n_ Make master_tops compatible with Salt 3000 and older minions (bsc#1212516, bsc#1212517)\n    \npython_jmespath:\n    \n_ Deliver python3_jmespath to SUSE Linux Enterprise Micro on s390x architecture as it is now required by Salt\n  (no source changes)\n    \npython_ply:\n    \n_ Deliver python3_ply to SUSE Linux Enterprise Micro on s390x architecture as it is a requirement for python_jmespath\n  (no source changes)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1687346783",
+                        "text": "2023_06_21T11:26:23Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "jira",
+                                "id": "MSQA_666",
+                                "title": "https://jira.suse.com/browse/MSQA_666",
+                                "href": "https://jira.suse.com/browse/MSQA_666"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1207071",
+                                "title": "[Build 20230111] fails to start salt: AttributeError: 'EntryPoints' object has no attribute 'items'",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1207071"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1209233",
+                                "title": "salt 3005.1: Need to add python3_jmespath to python3_salt's RPM Requires",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1209233"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1211612",
+                                "title": "salt update to 3006 has excessively tight requirements for python_pyzmq",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211612"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1211754",
+                                "title": "SLE Micro 5.x: Module function `transactional_update.pkg_install` is not available",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211754"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212516",
+                                "title": "Salt <= 3000: Empty highstate due to missing compatibility layer with Salt 3006",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212516"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212517",
+                                "title": "Salt <= 3000: Empty highstate due to missing compatibility layer with Salt 3006",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212517"
+                            },
+                            {
+                                "type": "jira",
+                                "id": "PED_4361",
+                                "title": "https://jira.suse.com/browse/PED_4361",
+                                "href": "https://jira.suse.com/browse/PED_4361"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_2495": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "important",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for libzypp",
+                    "description": "This update for libzypp fixes the following issues:\n\n_ Fix \"Curl error 92\" when synchronizing SUSE Manager repositories. [bsc#1212187]\n_ Do not unconditionally release a medium if provideFile failed. [bsc#1211661]",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1686661537",
+                        "text": "2023_06_13T13:05:37Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1211661",
+                                "title": "Signature verification failed for repomd.xml after extra keys download failed",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211661"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212187",
+                                "title": "L3: SUSE Manager reposync has started failing with \"Curl error 92 Error message: HTTP/2 stream 0 was not closed cleanly\"",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212187"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "SUSE_SLE_Module_Basesystem_15_SP4_2023_2550": {
+                    "kind": "patch",
+                    "edition": "1",
+                    "arch": "noarch",
+                    "status": "needed",
+                    "category": "recommended",
+                    "severity": "moderate",
+                    "pkgmanager": "true",
+                    "restart": "false",
+                    "interactive": "false",
+                    "summary": "Recommended update for autoyast2, libsolv, libyui, libzypp, yast2_pkg_bindings",
+                    "description": "This update for autoyast2, libsolv, libyui, libzypp, yast2_pkg_bindings ships the update stack to\nthe INSTALLER self_update channel.\n\nyast2_pkg_bindings:\n\n_ Added a new option for rebuilding the RPM database (__rebuilddb) (bsc#1209565)\n\nautoyast2:\n\n_ Selected products are not installed after resetting the package manager internally (bsc#1202234)\n\nlibyui:\n\n_ Prevent buffer overflow when drawing very wide labels in ncurses (bsc#1211354)\n_ Fixed loading icons from an absolute path (bsc#1210591)\n_ Fix for main window stacking order to avoid unintentional transparency (bsc#1199020, bsc#1191112)\n_ Force messages from .ui file through our translation mechanism (bsc#1198097)",
+                    "license": null,
+                    "source": {
+                        "url": "https://updates.suse.com/SUSE/Updates/SLE_Module_Basesystem/15_SP4/x86_64/update?QPOyxIKZM8y__ViHLA9us2IRGA_sIM8MHYY8CjxXC19R12eNL_YjCul_oNPNY61AVYXyGPPyEbrqlI_yGLG6rD_5dg8_C4KHcvL5sMIs8EM4jojn5hLpB0YbzSV_dAxvzBuzSe8SkK19ucx4cD4PH92yMbvB6g",
+                        "alias": "Basesystem_Module_15_SP4_x86_64:SLE_Module_Basesystem15_SP4_Updates"
+                    },
+                    "issue_date": {
+                        "time_t": "1687189888",
+                        "text": "2023_06_19T15:51:28Z"
+                    },
+                    "issue_list": {
+                        "issue": [
+                            {
+                                "type": "bugzilla",
+                                "id": "1209565",
+                                "title": "L3: Bad upgrade from 12 SP5 to 15 SP3: rpm database problem",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1209565"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1202234",
+                                "title": "Release packages of addon products are not installed by autoyast",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1202234"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212187",
+                                "title": "L3: SUSE Manager reposync has started failing with \"Curl error 92 Error message: HTTP/2 stream 0 was not closed cleanly\"",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212187"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1212189",
+                                "title": "NVIDIA Repository Fails: Curl error 92 _ HTTP/2 stream 5 was not closed cleanly: PROTOCOL_ERROR (err 1)",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1212189"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1191112",
+                                "title": "When navigating through YaST module screens the next screen appears, but its content is not loaded",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1191112"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1199020",
+                                "title": "Wrong resolution at Installation / Window background not cleared",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1199020"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1198097",
+                                "title": "Unlocalised Text on the Style Sheet Selections dialog on Yast",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1198097"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1211354",
+                                "title": "YaST (ncurses) closes \"User and Group Management\" immediately when opened",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1211354"
+                            },
+                            {
+                                "type": "bugzilla",
+                                "id": "1210591",
+                                "title": "Loading Icons from Full Paths always Fails",
+                                "href": "https://bugzilla.suse.com/show_bug.cgi?id=1210591"
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
