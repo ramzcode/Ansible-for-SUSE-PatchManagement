@@ -63,6 +63,9 @@
         content: "{{list_patches.stream.update_status}}"
         dest: /tmp/JSONdatafromansible
 
+    - name: "Restructure the JSON"
+      shell: python3 /root/SUSE/JSON-converter-NEW.py
+
     - name: "set available Patch var"
       set_fact:
         available_patch:
