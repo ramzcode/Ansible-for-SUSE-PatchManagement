@@ -11,7 +11,7 @@ with open(json_file_path, "r") as file:
 data = json.loads(json_data)
 
 # Search for the specific entry
-search_entry = "python3-firewall < 0.9.3-150400.8.3.19"
+search_entry = "sles-release.noarch < 15.4-150400.58.7.3"
 
 # Iterate through the data to find the matching entry
 for entry in data:

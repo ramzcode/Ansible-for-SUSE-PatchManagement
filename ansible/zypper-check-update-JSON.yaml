@@ -7,7 +7,7 @@
   tasks:
     - name: "Check if Updates available"
       shell: |
-        zypper lu
+        zypper refresh && zypper lu
       register: reg_update_check
 
     - name: "list update packages"

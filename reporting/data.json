@@ -1,0 +1,17 @@
+{
+    "sels": {
+        "sec": "high",
+        "cat": "feature",
+        "version": "20"
+    },
+    "yum": {
+        "sec": "low",
+        "cat": "security",
+        "version": "40"
+    },
+    "demo": {
+        "sec": "moderate",
+        "cat": "security",
+        "version": "40"
+    }
+}

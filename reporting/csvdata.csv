@@ -1,0 +1,5 @@
+package,sec,cat,version
+sels,high,feature,20
+yum,low,security,40
+demo,moderate,security,40
+
