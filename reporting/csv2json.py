@@ -19,8 +19,8 @@ def csv_to_json(csv_file_path, json_file_path, key_column):
         json.dump(data, json_file, indent=4)
 
 # Example usage
-csv_file_path = 'csvdata.csv'
-json_file_path = 'data.json'
-key_column = 'package'  # Specify the column name to be used as the key
+csv_file_path = '/tmp/errata.csv'
+json_file_path = '/tmp/errata.json'
+key_column = 'Package'  # Specify the column name to be used as the key
 csv_to_json(csv_file_path, json_file_path, key_column)
 

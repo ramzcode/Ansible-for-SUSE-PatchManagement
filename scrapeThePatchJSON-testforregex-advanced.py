@@ -13,7 +13,7 @@ pattern_start = sys.argv[1]
 pattern_end = sys.argv[2]
 
 # Specify the path to the JSON file
-json_file_path = "file.json"
+json_file_path = "/tmp/temp-patchlistinfo.json"
 
 # Read the JSON data from the file
 with open(json_file_path, "r") as file:
@@ -23,14 +23,14 @@ with open(json_file_path, "r") as file:
 data = json.loads(json_data)
 
 # Specify the path to the CSV file
-csv_file_path = "output.csv"
+csv_file_path = "/tmp/errata.csv"
 
 # Open the CSV file for writing
-with open(csv_file_path, "w", newline="") as csv_file:
+with open(csv_file_path, "a", newline="") as csv_file:
     writer = csv.writer(csv_file)
 
     # Write the CSV header
-    writer.writerow(["Update", "Severity", "Category"])
+    #writer.writerow(["Update", "Severity", "Category"])
 
     # Iterate through the data to find the matching entry and write it to the CSV file
     for entry in data:

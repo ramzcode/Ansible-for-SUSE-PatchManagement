@@ -6,6 +6,7 @@
 
   vars:
     - csv_report: "/tmp/csvpatchreport.csv"
+    - errata_report: "/tmp/errata.csv"
 
   pre_tasks:
     - name: "Fetch OS info"
@@ -15,7 +16,7 @@
           ansible_nodename
 
   tasks:
-    - name: "Initialize the Patch report file."
+    - name: "Initialize the global Patch report file."
       copy:
         content: "InventoryName,ComputerName,Operating_System,OS_Version,PatchID,Severity,Category\n"
         dest: "{{csv_report}}"
@@ -23,7 +24,15 @@
       run_once: true
       when: inventory_hostname == ansible_play_hosts_all[0]
 
-    - name: "Check if Updates available"
+    - name: "Initialize the errata report file."
+      copy:
+        content: "Package,Severity,Category\n"
+        dest: "{{errata_report}}"
+      delegate_to: localhost
+      run_once: true
+      when: inventory_hostname == ansible_play_hosts_all[0]
+
+    - name: "Update Local cache"
       shell: |
         zypper refresh && zypper lu
       register: reg_update_check
@@ -44,7 +53,7 @@
 
     - name: "Create_JSON for packages 1/2"
       set_fact:
-        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
+        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('update-status','update_status') | replace('update-list','update_list') | replace('@','')}}"
 
           #    - name: "debug"
           #      debug:
@@ -107,29 +116,36 @@
 
 ##Stage 3 starts
 
-    - name: "Write PatchList names to extractor"
-      shell: "echo {{item.0}} >> /tmp/temp-patchlist.txt && echo {{item.1}} >> /tmp/temp-patchlist.txt && cat /tmp/temp-patchlist.txt | grep -Ev '^$' >> /tmp/patchlistNames.txt "
-      with_together:
+    - name: "Write PatchList names to extractor 1/3"
+      shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' > /tmp/temp-patchlist6.txt"
+      loop:
         - "{{patch_jsonlist.blocked_update_list | json_query('update[*].name') | replace('_','-')}}"
+      delegate_to: localhost
+
+    - name: "Write PatchList names to extractor 2/3"
+      shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' >> /tmp/temp-patchlist6.txt"
+      loop:
         - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
       delegate_to: localhost
 
     - name: "Build patch info text file"
-      shell: "cat /tmp/patchlistNames.txt | grep -Ev "^$" | xargs zypper patch-info > /tmp/temp-patchlistinfo.txt"
+      shell: "cat /tmp/temp-patchlist6.txt | grep -Ev '^$' | xargs zypper patch-info > /tmp/temp-patchlistinfo.txt"
 
     - name: "Convert patchListsInfo TxT to JSON"
-      shell: python3 TXT2JSON-Convertorforpatchinfor.py > /tmp/temp-patchlistinfo.json
+      shell: "python3 /root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
 
 ##Stage 4 starts
 
-    - name: "Build data for Advisory finder"
-      shell: echo {{item.0}} \> {{item.1}} >> /tmp/temp-update_version.csv
+    - name: "Generate Advisory/ Errata data CSV 1/2"
+      shell: "python3 /root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}}"
       with_together:
-        - "{{ package_jsonlist | json_query('update[*].name') | replace('_','-')}}"
-        - "{{ package_jsonlist | json_query('update[*].edition') | replace('_','-')}}"
-      delegate_to: localhost
+        - "{{ package_jsonlist | json_query('update[*].name')}}"
+        - "{{ package_jsonlist | json_query('update[*].edition')}}"
 
-
+    - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
+      shell: "python3 /root/SUSE/reporting/csv2json.py"
+        #
+        #
         #   - name: "Filter the package from info list"
         #     shell: cat /tmp/temp-finalpatchlist.txt | grep -E '^\s*firewalld < 0.9.3-150400.8.9.1$'
           #
