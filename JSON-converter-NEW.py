@@ -1,7 +1,7 @@
 import json
 
 # Load the original JSON data
-with open('data.json') as file:
+with open('/root/SUSE/data.json') as file:
     data = json.load(file)
 
 # Create a new dictionary with embedded objects under "name" value
@@ -18,6 +18,6 @@ for item in data['update_list']['update']:
     updated_data['update_list']['update'].append(item)
 
 # Save the updated JSON data to a file
-with open('updated_data.json', 'w') as file:
+with open('/root/SUSE/updated_data.json', 'w') as file:
     json.dump(updated_data, file, indent=4)
 

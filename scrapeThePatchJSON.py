@@ -11,7 +11,7 @@ with open(json_file_path, "r") as file:
 data = json.loads(json_data)
 
 # Search for the specific entry
-search_entry = "sles-release.noarch < 15.4-150400.58.7.3"
+search_entry = "vim-data.noarch < 9.0.1572-150000.5.46.1"
 
 # Iterate through the data to find the matching entry
 for entry in data:

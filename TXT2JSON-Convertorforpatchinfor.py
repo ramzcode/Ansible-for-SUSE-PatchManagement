@@ -1,6 +1,6 @@
 import json
 
-file_path = 'file.txt'
+file_path = '/tmp/temp-patchlistinfo.txt'
 
 # Read the contents of the file
 with open(file_path, 'r') as file:
