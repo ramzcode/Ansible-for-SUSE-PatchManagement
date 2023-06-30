@@ -1,0 +1,11 @@
+---
+- name: "Install Updates"
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: "Deploy Updates"
+      community.general.zypper:
+        name: aaa_base
+        state: latest
+      register: install_log
