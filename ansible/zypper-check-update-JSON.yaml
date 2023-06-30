@@ -7,13 +7,15 @@
   vars:
     - csv_report: "/tmp/csvpatchreport.csv"
     - errata_report: "/tmp/errata.csv"
+    - reboot_required: "false"
 
   pre_tasks:
     - name: "Fetch OS info"
       setup:
         filter:
-          ansible_distribution
-          ansible_nodename
+          - ansible_distribution
+          - ansible_nodename
+          - ansible_distribution_version
 
   tasks:
     - name: "Initialize the global Patch report file."
@@ -26,7 +28,7 @@
 
     - name: "Initialize the errata report file."
       copy:
-        content: "Package,Severity,Category\n"
+        content: "Name,New_Version,Old_Version,Severity,Category,RestartNeeded,Arch\n"
         dest: "{{errata_report}}"
       delegate_to: localhost
       run_once: true
@@ -53,7 +55,7 @@
 
     - name: "Create_JSON for packages 1/2"
       set_fact:
-        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('update-status','update_status') | replace('update-list','update_list') | replace('@','')}}"
+        list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('update-status','update_status') | replace('update-list','update_list') | replace('@','') | replace('edition-old','edition_old')}}"
 
           #    - name: "debug"
           #      debug:
@@ -71,6 +73,11 @@
     - name: "Output total package to update"
       debug:
         msg: "{{available_pkg}}"
+
+    - name: "Temp save to JSON file for debug"
+      copy:
+        content: "{{ package_jsonlist}}"
+        dest: /tmp/package_jsonlist.json
 
 ##Stage 2 starts
 
@@ -137,19 +144,48 @@
 ##Stage 4 starts
 
     - name: "Generate Advisory/ Errata data CSV 1/2"
-      shell: "python3 /root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}}"
+      shell: "python3 /root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
       with_together:
         - "{{ package_jsonlist | json_query('update[*].name')}}"
         - "{{ package_jsonlist | json_query('update[*].edition')}}"
+        - "{{ package_jsonlist | json_query('update[*].edition_old')}}"
+        - "{{ package_jsonlist | json_query('update[*].arch')}}"
 
     - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
       shell: "python3 /root/SUSE/reporting/csv2json.py"
-        #
-        #
-        #   - name: "Filter the package from info list"
-        #     shell: cat /tmp/temp-finalpatchlist.txt | grep -E '^\s*firewalld < 0.9.3-150400.8.9.1$'
-          #
-          #    - name: "debug"
-          #      debug:
-          #        msg: "{{list_patch.stdout | ansible.utils.from_xml}}"
+
+    - name: "Load JSON errata variables"
+      include_vars: 
+        file: "/tmp/errata.json"
+        name: errata
+
+##Stage 5
+    - name: "Validate for pending reboots"
+      shell: "zypper ps -s"
+      register: validate_reboot
+
+    - name: "Override Reboot Required var vaule"
+      set_fact:
+        reboot_required: "true"
+      when: validate_reboot is regex("Reboot is suggested")
+
+    - name: "Is reboot needed"
+      debug:
+        var: reboot_required
+
+##Stage 6 starts
+    - name: "Build the Computer report"
+      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{available_pkg.available_pkg_count}},{{available_patch.available_total_patch_count}},{{reboot_required}}" >> "/tmp/SUSE-CompSummary.csv"
+      delegate_to: localhost
+
+    - name: "Build the Patch report"
+      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{item.0}},{{item.1}},{{item.2}},{{item.3}},{{item.4}},{{item.5}}" >> "/tmp/SUSE-PatchSummary.csv"
+      with_together:
+        - "{{errata | json_query('*.Name')}}"
+        - "{{errata | json_query('*.New_Version')}}"
+        - "{{errata | json_query('*.Old_Version')}}"
+        - "{{errata | json_query('*.Severity')}}"
+        - "{{errata | json_query('*.Category')}}"
+        - "{{errata | json_query('*.Arch')}}"
+      delegate_to: localhost 
 ...

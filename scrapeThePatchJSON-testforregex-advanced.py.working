@@ -9,10 +9,8 @@ if len(sys.argv) < 3:
     sys.exit(1)
 
 # Retrieve the command-line arguments
-name = sys.argv[1]
-version = sys.argv[2]
-old_version = sys.argv[3]
-arch = sys.argv[4]
+pattern_start = sys.argv[1]
+pattern_end = sys.argv[2]
 
 # Specify the path to the JSON file
 json_file_path = "/tmp/temp-patchlistinfo.json"
@@ -38,11 +36,11 @@ with open(csv_file_path, "a", newline="") as csv_file:
     for entry in data:
         conflicts = entry.get("Conflicts", [])
         for conflict in conflicts:
-            if re.search(f"{re.escape(name)}.* < {re.escape(version)}", conflict):
+            if re.search(f"{re.escape(pattern_start)}.* < {re.escape(pattern_end)}", conflict):
                 severity = entry.get("Severity")
                 category = entry.get("Category")
                 restart  = entry.get("Interactive")
-                writer.writerow([name, version, old_version, severity, category, restart, arch])
+                writer.writerow([pattern_start, severity, category, restart])
                 break  # Exit the loop after finding the matching entry
         else:
             continue

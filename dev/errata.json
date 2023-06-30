@@ -1,0 +1,927 @@
+{
+    "aaa_base": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "aaa_base-extras": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "apparmor-abstractions": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "apparmor-parser": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "apparmor-profiles": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "audit": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "branding-SLE": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "ca-certificates-mozilla": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "curl": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "dmidecode": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "dracut": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "dracut-mkinitrd-deprecated": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "e2fsprogs": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "elfutils": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "fbiterm": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "firewalld": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "gio-branding-SLE": {
+        "Severity": "moderate",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "glib2-tools": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "glibc": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "glibc-locale-base": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "gpg2": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "grep": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "grub2": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "grub2-branding-SLE": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "grub2-i386-pc": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "grub2-snapper-plugin": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "grub2-x86_64-efi": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "gzip": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "haveged": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "hwloc-data": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "ipset": {
+        "Severity": "important",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "iputils": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "issue-generator": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "kbd": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "kbd-legacy": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "krb5": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "less": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libapparmor1": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libasm1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libassuan0": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libaugeas0": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libblkid1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libcbor0": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libcom_err2": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libcrypt1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libcurl4": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libdevmapper1_03": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libdw1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libeconf0": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libelf1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libexpat1": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libext2fs2": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libfastjson4": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libfdisk1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libfreebl3": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libfreetype6": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libfribidi0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libgcc_s1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libgcrypt20": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libgio-2_0-0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libglib-2_0-0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libgmodule-2_0-0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libgnutls30": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libgobject-2_0-0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libhavege2": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libhwloc15": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libicu-suse65_1": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libicu65_1-ledata": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libiterm1": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libksba8": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libldap-2_4-2": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libldap-data": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libmount1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libncurses6": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libnftables1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libopenssl1_1": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libpcre1": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libprocps7": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libprotobuf-lite20": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libpsl5": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libpython3_6m1_0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libruby2_5-2_5": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libsigc-2_0-0": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libsmartcols1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libsnapper5": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libsodium23": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libsoftokn3": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libsolv-tools": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "restart"
+    },
+    "libsqlite3-0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libstdc++6": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libtasn1": {
+        "Severity": "critical",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libtasn1-6": {
+        "Severity": "critical",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libtirpc-netconfig": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libtirpc3": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libusb-1_0-0": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libuuid1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libvmtools0": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libxml2-2": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libxml2-tools": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libxmlsec1-1": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libxmlsec1-openssl1": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libxslt1": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libyaml-cpp0_6": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libz1": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "libzstd1": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "libzypp": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "restart"
+    },
+    "login_defs": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "logrotate": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "mozilla-nspr": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "mozilla-nss": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "mozilla-nss-certs": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "ncurses-utils": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "nftables": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "open-vm-tools": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "openssh": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "openssh-clients": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "openssh-common": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "openssh-server": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "openssl-1_1": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "pam": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "patterns-base-apparmor": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "patterns-base-base": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "patterns-base-minimal_base": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "perl": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "perl-Bootloader": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "perl-base": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "permissions": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "polkit-default-privs": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "procps": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "purge-kernels-service": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-M2Crypto": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-base": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-certifi": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-cryptography": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-firewall": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-gobject": {
+        "Severity": "moderate",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "python3-msgpack": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-nftables": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-packaging": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-psutil": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-py": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "python3-pyOpenSSL": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-pytz": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-pyzmq": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "restart"
+    },
+    "python3-rpm": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "python3-salt": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "restart"
+    },
+    "python3-setuptools": {
+        "Severity": "moderate",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "python3-zypp-plugin": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "rpm": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "rpm-config-SUSE": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "rsync": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "rsyslog": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "ruby2.5": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "ruby2.5-stdlib": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "salt": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "restart"
+    },
+    "salt-minion": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "restart"
+    },
+    "shadow": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "shim": {
+        "Severity": "important",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "snapper": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "snapper-zypp-plugin": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "suse-build-key": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "suse-module-tools": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "suseconnect-ng": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "sysconfig": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "sysconfig-netconfig": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "system-group-audit": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "systemd-presets-branding-SLE": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "systemd-presets-common-SUSE": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "systemd-rpm-macros": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "tar": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "terminfo-base": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "timezone": {
+        "Severity": "important",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "update-alternatives": {
+        "Severity": "low",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "util-linux": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "util-linux-systemd": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    },
+    "vim": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "vim-data": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "vim-data-common": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "wicked": {
+        "Severity": "moderate",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "wicked-service": {
+        "Severity": "moderate",
+        "Category": "feature",
+        "RestartNeeded": "---"
+    },
+    "zstd": {
+        "Severity": "moderate",
+        "Category": "security",
+        "RestartNeeded": "---"
+    },
+    "zypper": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "restart"
+    },
+    "zypper-needs-restarting": {
+        "Severity": "moderate",
+        "Category": "recommended",
+        "RestartNeeded": "restart"
+    },
+    "sles-release": {
+        "Severity": "low",
+        "Category": "recommended",
+        "RestartNeeded": "---"
+    }
+}

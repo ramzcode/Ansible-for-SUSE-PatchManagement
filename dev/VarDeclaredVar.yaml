@@ -1,0 +1,23 @@
+---
+- name: "Test"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: "Load the errata var"
+      include_vars:
+        file: /tmp/errata.json
+        name: errata
+      no_log: true
+
+        #    - name: "Load the package var"
+        #      include_vars:
+        #        file: /root/SUSE/dev/package_jsonlist.json
+        #        name: updates
+
+    - name: "Debug"
+      shell: "echo {{item.0}}"
+      with_together:
+        - "{{errata | json_query('*.Name')}}"
+

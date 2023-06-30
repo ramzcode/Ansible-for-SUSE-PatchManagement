@@ -1,5 +1,5 @@
-package,sec,cat,version
-sels,high,feature,20
-yum,low,security,40
-demo,moderate,security,40
+Package,sec,cat,version,rebootneeded
+sels,high,feature,20,true
+yum,low,security,40,false
+demo,moderate,security,40,true
 

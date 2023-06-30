@@ -2,16 +2,19 @@
     "sels": {
         "sec": "high",
         "cat": "feature",
-        "version": "20"
+        "version": "20",
+        "rebootneeded": "true"
     },
     "yum": {
         "sec": "low",
         "cat": "security",
-        "version": "40"
+        "version": "40",
+        "rebootneeded": "false"
     },
     "demo": {
         "sec": "moderate",
         "cat": "security",
-        "version": "40"
+        "version": "40",
+        "rebootneeded": "true"
     }
 }

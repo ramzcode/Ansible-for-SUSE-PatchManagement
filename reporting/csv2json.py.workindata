@@ -11,7 +11,7 @@ def csv_to_json(csv_file_path, json_file_path, key_column):
         # Convert each row to a dictionary and add it to the data dictionary
         for row in reader:
             key = row[key_column]
-            #del row[key_column]  # Remove the key column from the row dictionary
+            del row[key_column]  # Remove the key column from the row dictionary
             data[key] = row
     
     # Write the data to a JSON file
@@ -21,6 +21,6 @@ def csv_to_json(csv_file_path, json_file_path, key_column):
 # Example usage
 csv_file_path = '/tmp/errata.csv'
 json_file_path = '/tmp/errata.json'
-key_column = 'Name'  # Specify the column name to be used as the key
+key_column = 'Package'  # Specify the column name to be used as the key
 csv_to_json(csv_file_path, json_file_path, key_column)
 
