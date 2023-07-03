@@ -4,8 +4,62 @@
   connection: local
 
   tasks:
-    - name: "Deploy Updates"
+    #- name: Exclude packages from being update.
+    #  command: zypper addlock "{{ item }}"
+    #  loop: "{{ update_reboot_suse_exclude_pkgs[inventory_hostname] | default([]) }}"
+    #  changed_when: false
+    
+    - name: "Refresh all repos"
+      community.general.zypper_repository:
+        repo: "*"
+        runrefresh: yes
+      register: repostate
+    
+    - name: "Deploy Provided Updates/Patches"
       community.general.zypper:
-        name: aaa_base
+        update_cache: yes
+        name: "*"
         state: latest
-      register: install_log
+      register: patchstate
+    
+    - name: "List installed packages."
+      shell: >
+        rpm -qa --qf '(%{INSTALLTIME:date}):
+        %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n'
+        | grep "$(date +%a\ %d\ %b\ %Y)" | sort -n
+      args:
+        executable: /bin/bash
+      register: update_pkgs_logs
+    
+        #    - name: "Remove excluded packages."
+        #      command: zypper removelock "{{ item }}"
+        #      loop: "{{ update_reboot_suse_exclude_pkgs[inventory_hostname] | default([]) }}"
+        #      changed_when: false
+    
+    - name: Ensure if service restart is required.
+      command: zypper ps
+      failed_when: false
+      changed_when: false
+      register: update_reboot_service_restart_required
+    
+    - name: Ensure the service are restarted.
+      shell: systemctl restart $(zypper ps -sss)
+      failed_when: false
+      changed_when: false
+      when: update_reboot_service_restart_required.rc != 0
+    
+    - name: Ensure a new kernel has been installed.
+      stat:
+        path: /boot/do_purge_kernels
+      register: update_reboot_required
+    
+    - debug:
+        msg: reboot is required
+      changed_when: true
+      when: >
+        update_reboot_required.stat.exists == true
+        and update_reboot_required_enable | bool
+      notify:
+        - Ensure the node reboots.
+        - Node coming back from reboot.
+...
