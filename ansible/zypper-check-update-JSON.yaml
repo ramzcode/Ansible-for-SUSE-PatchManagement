@@ -5,7 +5,8 @@
   gather_facts: false
 
   vars:
-    - csv_report: "/tmp/csvpatchreport.csv"
+    - csv_CompReport: "/tmp/SUSE-CompSummary.csv"
+    - csv_PatchReport: "/tmp/SUSE-PatchSummary.csv"
     - errata_report: "/tmp/errata.csv"
     - reboot_required: "false"
 
@@ -18,10 +19,18 @@
           - ansible_distribution_version
 
   tasks:
-    - name: "Initialize the global Patch report file."
+    - name: "Initialize the Patch report file."
       copy:
-        content: "InventoryName,ComputerName,Operating_System,OS_Version,PatchID,Severity,Category\n"
-        dest: "{{csv_report}}"
+        content: "InventoryName,ComputerName,Operating_System,OS_Version,PatchName,LatestVersion,OldVersion,Severity,Category,Arch\n"
+        dest: "{{csv_PatchReport}}"
+      delegate_to: localhost
+      run_once: true
+      when: inventory_hostname == ansible_play_hosts_all[0]
+
+    - name: "Initialize the Computer report file."
+      copy:
+        content: "InventoryName,ComputerName,Operating_System,OS_Version,TotalAvailableUpates,TotalPatch,RebootNeeded\n"
+        dest: "{{csv_CompReport}}"
       delegate_to: localhost
       run_once: true
       when: inventory_hostname == ansible_play_hosts_all[0]
@@ -30,11 +39,10 @@
       copy:
         content: "Name,New_Version,Old_Version,Severity,Category,RestartNeeded,Arch\n"
         dest: "{{errata_report}}"
-      delegate_to: localhost
       run_once: true
       when: inventory_hostname == ansible_play_hosts_all[0]
 
-    - name: "Update Local cache"
+    - name: "Update Local cache AND check validations"
       shell: |
         zypper refresh && zypper lu
       register: reg_update_check
@@ -56,6 +64,7 @@
     - name: "Create_JSON for packages 1/2"
       set_fact:
         list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('update-status','update_status') | replace('update-list','update_list') | replace('@','') | replace('edition-old','edition_old')}}"
+      when: reg_update_check is not regex("No updates found")
 
           #    - name: "debug"
           #      debug:
@@ -64,20 +73,23 @@
     - name: "Create_FinalJSON for packages 2/2"
       set_fact:
         package_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
+      when: reg_update_check is not regex("No updates found")
 
     - name: "set available Pkg var"
       set_fact:
         available_pkg:
           available_pkg_count: "{{ package_jsonlist | json_query('update[*].name') | list | length | int }}"
+      when: reg_update_check is not regex("No updates found")
 
     - name: "Output total package to update"
       debug:
         msg: "{{available_pkg}}"
+      when: reg_update_check is not regex("No updates found")
 
-    - name: "Temp save to JSON file for debug"
-      copy:
-        content: "{{ package_jsonlist}}"
-        dest: /tmp/package_jsonlist.json
+        #    - name: "Temp save to JSON file for debug"
+        #      copy:
+        #        content: "{{ package_jsonlist}}"
+        #        dest: /tmp/package_jsonlist.json
 
 ##Stage 2 starts
 
@@ -91,10 +103,12 @@
     - name: "Create_JSON for patches 1/2"
       set_fact:
         list_patches: "{{list_patch.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
+      when: reg_update_check is not regex("No updates found")
 
     - name: "Create_FinalJSON for PatchList 2/2"
       set_fact:
         patch_jsonlist: "{{list_patches.stream.update_status}}"
+      when: reg_update_check is not regex("No updates found")
 
           #    - name: "Create the JSON fill for conversion"
           #      copy:
@@ -110,10 +124,12 @@
           #available_pkgpatch_count: "{{ patch_jsonlist.blocked_update_list | json_query('update[*].name') | list | length | int }}"
           #available_pkgmgrpatch_count: "{{ patch_jsonlist.update_list | json_query('update[*].name') | list | length | int }}"
           available_total_patch_count: "{{ (patch_jsonlist.blocked_update_list | json_query('update[*].name') | list | length | int) + (patch_jsonlist.update_list | json_query('update[*].name') | list | length | int) }}"
+      when: reg_update_check is not regex("No updates found")
 
     - name: "Output total patches applicable"
       debug:
         msg: "{{available_patch}}"
+      when: reg_update_check is not regex("No updates found")
 
           #    - name: "debug"
           #      debug:
@@ -127,32 +143,39 @@
       shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' > /tmp/temp-patchlist6.txt"
       loop:
         - "{{patch_jsonlist.blocked_update_list | json_query('update[*].name') | replace('_','-')}}"
-      delegate_to: localhost
+      no_log: true
 
     - name: "Write PatchList names to extractor 2/3"
       shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' >> /tmp/temp-patchlist6.txt"
       loop:
         - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
-      delegate_to: localhost
+      no_log: true
 
     - name: "Build patch info text file"
       shell: "cat /tmp/temp-patchlist6.txt | grep -Ev '^$' | xargs zypper patch-info > /tmp/temp-patchlistinfo.txt"
 
     - name: "Convert patchListsInfo TxT to JSON"
-      shell: "python3 /root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
+      ansible.builtin.script: "/root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
+      args:
+        executable: python3
 
 ##Stage 4 starts
 
     - name: "Generate Advisory/ Errata data CSV 1/2"
-      shell: "python3 /root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
+      ansible.builtin.script: "/root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
+      args:
+        executable: python3
       with_together:
         - "{{ package_jsonlist | json_query('update[*].name')}}"
         - "{{ package_jsonlist | json_query('update[*].edition')}}"
         - "{{ package_jsonlist | json_query('update[*].edition_old')}}"
         - "{{ package_jsonlist | json_query('update[*].arch')}}"
+      no_log: true
 
     - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
-      shell: "python3 /root/SUSE/reporting/csv2json.py"
+      ansible.builtin.script: "/root/SUSE/reporting/csv2json.py"
+      args:
+        executable: python3
 
     - name: "Load JSON errata variables"
       include_vars: 
@@ -175,11 +198,12 @@
 
 ##Stage 6 starts
     - name: "Build the Computer report"
-      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{available_pkg.available_pkg_count}},{{available_patch.available_total_patch_count}},{{reboot_required}}" >> "/tmp/SUSE-CompSummary.csv"
+      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{available_pkg.available_pkg_count}},{{available_patch.available_total_patch_count}},{{reboot_required}}" >> "{{csv_CompReport}}"
       delegate_to: localhost
+      no_log: true
 
     - name: "Build the Patch report"
-      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{item.0}},{{item.1}},{{item.2}},{{item.3}},{{item.4}},{{item.5}}" >> "/tmp/SUSE-PatchSummary.csv"
+      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{item.0}},{{item.1}},{{item.2}},{{item.3}},{{item.4}},{{item.5}}" >> "{{csv_PatchReport}}"
       with_together:
         - "{{errata | json_query('*.Name')}}"
         - "{{errata | json_query('*.New_Version')}}"
@@ -187,5 +211,18 @@
         - "{{errata | json_query('*.Severity')}}"
         - "{{errata | json_query('*.Category')}}"
         - "{{errata | json_query('*.Arch')}}"
-      delegate_to: localhost 
+      delegate_to: localhost
+      no_log: true
+
+  post_tasks:
+    - name: "Wipe Caches AND TempFiles"
+      ansible.builtin.file:
+        path: "/tmp/{{item}}"
+        state: absent
+      loop:
+        - errata.json
+        - errata.csv
+        - temp-patchlistinfo.json
+        - temp-patchlistinfo.txt
+        - temp-patchlist6.txt
 ...
