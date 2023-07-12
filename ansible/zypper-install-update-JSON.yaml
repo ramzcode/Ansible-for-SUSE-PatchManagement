@@ -2,6 +2,23 @@
 - name: "Install Updates"
   hosts: localhost
   connection: local
+  gather_facts: false
+
+  vars:
+    - csv_CompDeployReport: "/tmp/SUSE-CompSummary.csv"
+    - csv_PatchDeployReport: "/tmp/SUSE-PatchSummary.csv"
+    - reboot_required: "false"
+    - patch_list:
+      - vim
+      - zstd
+
+  pre_tasks:
+    - name: "Fetch OS info"
+      setup:
+        filter:
+          - ansible_distribution
+          - ansible_nodename
+          - ansible_distribution_version
 
   tasks:
     #- name: Exclude packages from being update.
@@ -9,18 +26,30 @@
     #  loop: "{{ update_reboot_suse_exclude_pkgs[inventory_hostname] | default([]) }}"
     #  changed_when: false
     
-    - name: "Refresh all repos"
-      community.general.zypper_repository:
-        repo: "*"
-        runrefresh: yes
-      register: repostate
+    #- name: "Refresh all repos"
+    #  community.general.zypper_repository:
+    #    repo: "*"
+    #    runrefresh: yes
+    #  register: repostate
+
+##Stage 1
+    - name: "Update Local cache AND check for Updates if available"
+      shell: |
+        zypper refresh && zypper lu
+      register: reg_update_check
     
     - name: "Deploy Provided Updates/Patches"
       community.general.zypper:
-        update_cache: yes
-        name: "*"
+        name: "{{patch_list}}"
         state: latest
+      when: reg_update_check is not regex("No updates found")
       register: patchstate
+
+    - name: "Print Installer log"
+      debug:
+        var: patchstate
+
+##Stage 2
     
     - name: "List installed packages."
       shell: >
@@ -30,36 +59,50 @@
       args:
         executable: /bin/bash
       register: update_pkgs_logs
+      when: patchstate is changed
+
+    - name: "Print Applied Patches"
+      debug:
+        var: update_pkgs_logs.stdout
+
+##Stage 3
+    - name: "Validate for pending reboots"
+      shell: "zypper ps -s"
+      register: validate_reboot
+
+    - name: "Override Reboot Required var vaule"
+      set_fact:
+        reboot_required: "true"
+      when: validate_reboot is regex("Reboot is suggested")
+
+    - name: "Is reboot needed"
+      debug:
+        var: reboot_required
     
         #    - name: "Remove excluded packages."
         #      command: zypper removelock "{{ item }}"
         #      loop: "{{ update_reboot_suse_exclude_pkgs[inventory_hostname] | default([]) }}"
         #      changed_when: false
     
-    - name: Ensure if service restart is required.
-      command: zypper ps
-      failed_when: false
-      changed_when: false
-      register: update_reboot_service_restart_required
-    
-    - name: Ensure the service are restarted.
-      shell: systemctl restart $(zypper ps -sss)
-      failed_when: false
-      changed_when: false
-      when: update_reboot_service_restart_required.rc != 0
-    
-    - name: Ensure a new kernel has been installed.
-      stat:
-        path: /boot/do_purge_kernels
-      register: update_reboot_required
-    
-    - debug:
-        msg: reboot is required
-      changed_when: true
-      when: >
-        update_reboot_required.stat.exists == true
-        and update_reboot_required_enable | bool
-      notify:
-        - Ensure the node reboots.
-        - Node coming back from reboot.
+        #- name: Ensure if service restart is required.
+        #  command: zypper ps
+        #  failed_when: false
+        #  changed_when: false
+        #  register: update_reboot_service_restart_required
+        #
+        #- name: Ensure the service are restarted.
+        #  shell: systemctl restart $(zypper ps -sss)
+        #  failed_when: false
+        #  changed_when: false
+        #  when: update_reboot_service_restart_required.rc != 0    
+        #
+        #- debug:
+        #    msg: reboot is required
+        #  changed_when: true
+        #  when: >
+        #    update_reboot_required.stat.exists == true
+        #    and update_reboot_required_enable | bool
+        #  notify:
+        #    - Ensure the node reboots.
+        #    - Node coming back from reboot.
 ...

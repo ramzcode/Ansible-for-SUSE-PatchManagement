@@ -34,7 +34,7 @@
       delegate_to: localhost
       run_once: true
       when: inventory_hostname == ansible_play_hosts_all[0]
-
+##DO NOT COMMENT BELOW BLOCK
     - name: "Initialize the errata report file."
       copy:
         content: "Name,New_Version,Old_Version,Severity,Category,RestartNeeded,Arch\n"
