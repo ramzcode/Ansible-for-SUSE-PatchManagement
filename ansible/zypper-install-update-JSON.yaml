@@ -5,12 +5,17 @@
   gather_facts: false
 
   vars:
-    - csv_CompDeployReport: "/tmp/SUSE-CompSummary.csv"
-    - csv_PatchDeployReport: "/tmp/SUSE-PatchSummary.csv"
+    - csv_CompDeployReport: "/tmp/SUSE-CompDeploySummary.csv"
     - reboot_required: "false"
+    - matches: '0'
+    - any_error: false
     - patch_list:
-      - vim
-      - zstd
+      - salt
+      - salt-minion
+    - update_payload:
+        received_updates: "{{ patch_list | length | int }}"
+    - applied_facts:
+        applied_updates: '0'
 
   pre_tasks:
     - name: "Fetch OS info"
@@ -21,6 +26,14 @@
           - ansible_distribution_version
 
   tasks:
+##Stage 0
+    - name: "Initialize the Computer report file."
+      copy:
+        content: "InventoryName,ComputerName,Operating_System,OS_Version,ReceivedUpdates,Appliedupdates,RebootNeeded,FatalError\n"
+        dest: "{{csv_CompDeployReport}}"
+      delegate_to: localhost
+      run_once: true
+      when: inventory_hostname == ansible_play_hosts_all[0]
     #- name: Exclude packages from being update.
     #  command: zypper addlock "{{ item }}"
     #  loop: "{{ update_reboot_suse_exclude_pkgs[inventory_hostname] | default([]) }}"
@@ -37,6 +50,7 @@
       shell: |
         zypper refresh && zypper lu
       register: reg_update_check
+      no_log: true
     
     - name: "Deploy Provided Updates/Patches"
       community.general.zypper:
@@ -44,31 +58,62 @@
         state: latest
       when: reg_update_check is not regex("No updates found")
       register: patchstate
+      no_log: true
 
-    - name: "Print Installer log"
-      debug:
-        var: patchstate
+        #    - name: "Print Installer log"
+        #      debug:
+        #        var: patchstate
 
 ##Stage 2
-    
-    - name: "List installed packages."
-      shell: >
-        rpm -qa --qf '(%{INSTALLTIME:date}):
-        %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n'
-        | grep "$(date +%a\ %d\ %b\ %Y)" | sort -n
-      args:
-        executable: /bin/bash
-      register: update_pkgs_logs
+    - block:
+      - name: "List installed packages."
+        shell: |
+          rpm -qa --qf '(%{INSTALLTIME:date}): %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n' | grep "$(date +%a\ %d\ %b\ %Y)" | sort -n | awk -F '): ' '{print $2}'
+        args:
+          executable: /bin/bash
+        register: update_pkgs_logs
+  
+      - name: "Create Var"
+        set_fact:
+          update_facts:
+            received_updates: "{{ patch_list | length | int }}"
+            todays_updates: "{{update_pkgs_logs.stdout_lines}}"
+  
+      - name: "Execute Python script"
+        script: /root/SUSE/applied_updates.py "{{ update_facts.todays_updates }}" "{{ patch_list }}"
+        args:
+          executable: python3
+        register: script_output
+  
+      - name: "Update Applied updates fact"
+        set_fact:
+          applied_facts:
+            applied_updates: "{{script_output | json_query('stdout_lines[0]')| regex_replace('^Total_matches: ', '') | int}}"
       when: patchstate is changed
 
     - name: "Print Applied Patches"
       debug:
-        var: update_pkgs_logs.stdout
+        var: applied_facts.applied_updates
+      when: patchstate is changed
+
+    - name: "Print if not updated"
+      debug:
+        msg: "Nothing to Update"
+      when: patchstate is not changed
 
 ##Stage 3
+    - name: "Update Deployment fact incase of errors"
+      set_fact:
+        any_error: true
+      when: 
+        - patchstate is changed
+        - applied_facts.applied_updates != update_facts.received_updates 
+
+##Stage 4
     - name: "Validate for pending reboots"
       shell: "zypper ps -s"
       register: validate_reboot
+      no_log: true
 
     - name: "Override Reboot Required var vaule"
       set_fact:
@@ -78,6 +123,12 @@
     - name: "Is reboot needed"
       debug:
         var: reboot_required
+
+##Stage 5
+    - name: "Build the Computer report"
+      shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{update_payload.received_updates}},{{applied_facts.applied_updates}},{{reboot_required}},{{any_error}}" >> "{{csv_CompDeployReport}}"
+      delegate_to: localhost
+      no_log: true
     
         #    - name: "Remove excluded packages."
         #      command: zypper removelock "{{ item }}"
