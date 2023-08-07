@@ -4,6 +4,9 @@
   gather_facts: false
   ignore_unreachable: true
 
+  vars:
+    - job_status: "Failed"
+
   tasks:
     - name: "Check if SUSE Cloud repo is accessible"
       ansible.builtin.shell: ping -c 2 updates.suse.com
@@ -12,8 +15,37 @@
       changed_when: false
       ignore_errors: true
 
-    - name: "Run RMT-CLI if ping is true"
+    - name: "Run RMT SYNC if ICMP is true"
       ansible.builtin.shell: "rmt-cli mirror > /tmp/rmt_sync"
       no_log: true
       when: icmp_result is not failed
+      register: RmtSync_result
+      ignore_errors: true
 
+    - name: "Read the report"
+      ansible.builtin.shell: "tail -n 5 /tmp/rmt_sync"
+      register: log_report
+      changed_when: false
+      when:
+        - RmtSync_result is defined
+        - icmp_result is not failed
+
+    - name: "Reset the job_status if Success"
+      set_fact:
+        job_status: "Success"
+      when:
+        - log_report is defined
+        - RmtSync_result is not failed
+        - log_report is regex("Mirroring complete.")
+
+    - name: "Reset the job_status if Error"
+      set_fact:
+        job_status: "Error"
+      when:
+        - log_report is defined
+        - RmtSync_result is not failed or RmtSync_result is failed
+        - log_report is regex("The command exited with errors")
+
+    - name: "Debug"
+      debug:
+        var: job_status
