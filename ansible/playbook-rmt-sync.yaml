@@ -46,7 +46,7 @@
         - RmtSync_result is not failed or RmtSync_result is failed
         - log_report is regex("The command exited with errors")
     
-    - name: "Display"
+    - name: "Display the Job Status"
       debug:
         var: job_status
 ...
