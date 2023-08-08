@@ -1,0 +1,19 @@
+---
+- name: "SLES RMT Sync"
+  hosts: localhost
+  gather_facts: false
+  ignore_unreachable: true
+
+  tasks:
+    - name: "Check if SUSE Cloud repo is accessible"
+      ansible.builtin.shell: ping -c 2 updates.suse.com
+      register: icmp_result
+      failed_when: icmp_result.rc != 0
+      changed_when: false
+      ignore_errors: true
+
+    - name: "Run RMT-CLI if ping is true"
+      ansible.builtin.shell: "rmt-cli mirror > /tmp/rmt_sync"
+      no_log: true
+      when: icmp_result is not failed
+
