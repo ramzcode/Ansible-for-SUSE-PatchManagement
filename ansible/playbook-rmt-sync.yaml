@@ -45,4 +45,4 @@
         - log_report is defined
         - RmtSync_result is not failed or RmtSync_result is failed
         - log_report is regex("The command exited with errors")
-...
+
