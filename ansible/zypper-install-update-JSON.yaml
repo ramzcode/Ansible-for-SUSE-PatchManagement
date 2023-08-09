@@ -10,8 +10,8 @@
     - matches: '0'
     - any_error: false
     - patch_list:
-      - salt
-      - salt-minion
+        - xterm
+        - xterm-bin
     - update_payload:
         received_updates: "{{ patch_list | length | int }}"
     - applied_facts:
@@ -58,6 +58,7 @@
         state: latest
       when: reg_update_check is not regex("No updates found")
       register: patchstate
+      ignore_errors: true
       no_log: true
 
         #    - name: "Print Installer log"
@@ -68,7 +69,14 @@
     - block:
       - name: "List installed packages."
         shell: |
-          rpm -qa --qf '(%{INSTALLTIME:date}): %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n' | grep "$(date +%a\ %d\ %b\ %Y)" | sort -n | awk -F '): ' '{print $2}'
+          rpm -qa --queryformat "%{INSTALLTIME} %{NAME}\n" | sort -n | while read -r timestamp package; do
+          current_time=$(date +%s);
+          time_difference=$((current_time - timestamp));
+          if [ "$time_difference" -le 21600 ]; then
+            echo "$(date -d @$timestamp) - $package";
+          fi;
+          done | awk  '{print $NF}' | tee /tmp/pack_logs
+          #rpm -qa --qf '(%{INSTALLTIME:date}): %{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n' | grep "$(date +%a\ %d\ %b\ %Y)" | sort -n | awk -F '): ' '{print $2}'
         args:
           executable: /bin/bash
         register: update_pkgs_logs
@@ -123,8 +131,15 @@
     - name: "Is reboot needed"
       debug:
         var: reboot_required
-
 ##Stage 5
+    - name: "Validate if Individual packages exist from log"
+      shell: "cat /tmp/pack_logs | grep ^{{item}}$"
+      #shell: "echo {{update_pkgs_logs.stdout_lines | flatten}} | grep {{item}}"
+      loop: "{{patch_list}}"
+      when: update_pkgs_logs is defined
+      register: status
+
+##Stage 6
     - name: "Build the Computer report"
       shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{update_payload.received_updates}},{{applied_facts.applied_updates}},{{reboot_required}},{{any_error}}" >> "{{csv_CompDeployReport}}"
       delegate_to: localhost
