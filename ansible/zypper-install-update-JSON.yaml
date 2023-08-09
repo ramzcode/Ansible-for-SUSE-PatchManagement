@@ -138,6 +138,7 @@
       loop: "{{patch_list}}"
       when: update_pkgs_logs is defined
       register: status
+      ignore_errors: true
 
 ##Stage 6
     - name: "Build the Computer report"
