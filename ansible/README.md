@@ -7,4 +7,5 @@
 5. SUSEConnect --cleanup
 6. ./rmt-client-setup --host rmtserver.ramzcode.com  ## Answer Y to question or pass CLI parameter to use within a script
 7. SUSEConnect -s
+8. zypper ref
 
