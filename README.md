@@ -20,7 +20,7 @@
 
 
 | Automation   | SLES 15.4   | SLES 15.5   | OpenSUSE 15   | SLES 12.5  |
-|---|---|---|---|---|
+|:---:|:---:|:---:|:---:|:---:|
 | RMT   | Y  | Y  |   |   |
 | Patch Scan   | Y  |   |   |   |
 | Patch Deploy  | Y  |   |   |   |
