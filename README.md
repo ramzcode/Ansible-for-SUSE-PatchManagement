@@ -15,4 +15,12 @@
 8. Now from step 5 the data is again processed with python using the package name and both sev and category is identified
 9. all saved vars - pkg, sev, cat, current version, new version, arch are getting saved into a csv file.
 10. From step 7 the data is converted into a JSON key based array.
-11. data is passed to the API calls.
+11. data is passed to the API calls
+
+
+
+| Automation   | SLES 15.4   | SLES 15.5   | OpenSUSE 15   | SLES 12.5  |
+|---|---|---|---|---|
+| RMT   | Y  | Y  |   |   |
+| Patch Scan   | Y  |   |   |   |
+| Patch Deploy  | Y  |   |   |   |
