@@ -136,7 +136,9 @@
       shell: "cat /tmp/pack_logs | grep ^{{item}}$"
       #shell: "echo {{update_pkgs_logs.stdout_lines | flatten}} | grep {{item}}"
       loop: "{{patch_list}}"
-      when: update_pkgs_logs is defined
+      when:
+        - patchstate is changed
+        - update_pkgs_logs is defined
       register: status
       ignore_errors: true
 
