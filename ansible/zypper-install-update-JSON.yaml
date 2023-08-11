@@ -1,7 +1,6 @@
 ---
 - name: "Install Updates"
-  hosts: localhost
-  connection: local
+  hosts: all
   gather_facts: false
 
   vars:
@@ -10,8 +9,8 @@
     - matches: '0'
     - any_error: false
     - patch_list:
-        - xterm
-        - xterm-bin
+        - blog
+        - man
     - update_payload:
         received_updates: "{{ patch_list | length | int }}"
     - applied_facts:
@@ -118,6 +117,12 @@
         - applied_facts.applied_updates != update_facts.received_updates 
 
 ##Stage 4
+#
+    - name: "Check if lsof reboot validation dep is present"
+      zypper:
+        name: lsof
+        state: present
+    
     - name: "Validate for pending reboots"
       shell: "zypper ps -s"
       register: validate_reboot
