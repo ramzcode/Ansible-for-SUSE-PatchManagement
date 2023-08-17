@@ -9,8 +9,7 @@
     - matches: '0'
     - any_error: false
     - patch_list:
-        - blog
-        - man
+        - libre2-8-0
     - update_payload:
         received_updates: "{{ patch_list | length | int }}"
     - applied_facts:
@@ -105,8 +104,15 @@
 
     - name: "Print if not updated"
       debug:
-        msg: "Nothing to Update"
-      when: patchstate is not changed
+        msg: "Nothing to Update!!"
+      when:
+        - patchstate is not changed
+        - patchstate is not failed
+
+    - name: "Print if patching failed"
+      debug:
+        msg: "Patch Deployment Failure!!"
+      when: patchstate is failed
 
 ##Stage 3
     - name: "Update Deployment fact incase of errors"
