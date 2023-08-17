@@ -21,6 +21,6 @@
 
 | Automation        | SLES 15.4   | SLES 15.5   | OpenSUSE 15.4   | OpenSUSE 15.5  | SLES 12.5  |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| RMT Repo Sync     | Y  | Y  |    |   |     |
-| Patch Scan        | Y  | Y  | Y  | Y  |     |
-| Patch Deploy      | Y  | Y  | Y  | Y  |     |
+| RMT Repo Sync     | Y  | Y  |    |   |   Y  |
+| Patch Scan        | Y  | Y  | Y  | Y  |  Y   |
+| Patch Deploy      | Y  | Y  | Y  | Y  |  Y   |
