@@ -28,3 +28,5 @@ And Many More ....
 | RMT Repo Sync     | Y  | Y  |    |   |   Y  |
 | Patch Scan        | Y  | Y  | Y  | Y  |  Y   |
 | Patch Deploy      | Y  | Y  | Y  | Y  |  Y   |
+
+![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/adfc7dcb-5cb2-44d3-8c35-075d01e29ab1)
