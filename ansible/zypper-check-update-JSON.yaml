@@ -38,8 +38,6 @@
       copy:
         content: "Name,New_Version,Old_Version,Severity,Category,RestartNeeded,Arch\n"
         dest: "{{errata_report}}"
-      run_once: true
-      when: inventory_hostname == ansible_play_hosts_all[0]
 
     - name: "Update Local cache AND check validations"
       shell: |
@@ -154,16 +152,16 @@
 ##Stage 3 starts
     - name: "Block to validate both blocked updates and update list"
       block:
-        - name: "Write PatchList names to extractor 1/3"
+        - name: "Write PatchList names to extractor 1/2"
           shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' > /tmp/temp-patchlist6.txt"
           no_log: false
           loop:
             - "{{patch_jsonlist.blocked_update_list | default({}) | json_query('update[*].name') | replace('_','-')}}"
     
-        - name: "Write PatchList names to extractor 2/3"
+        - name: "Write PatchList names to extractor 2/2"
           shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' >> /tmp/temp-patchlist6.txt"
           loop:
-            - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
+            - "{{patch_jsonlist.update_list | default({})| json_query('update[*].name') | replace('_','-')}}"
           no_log: false
       when:
         - patch_jsonlist.blocked_update_list is defined
@@ -172,80 +170,88 @@
     - name: "Write PatchList names to extractor if Blocked updates not available"
       shell: "echo {{item}} | tr '[' ' ' | tr ']' ' '| tr -d ' ' | tr ',' '\n' > /tmp/temp-patchlist6.txt"
       loop:
-        - "{{patch_jsonlist.update_list | json_query('update[*].name') | replace('_','-')}}"
+        - "{{patch_jsonlist.update_list | default({}) | json_query('update[*].name') | replace('_','-')}}"
       no_log: false
       when:
         - reg_update_check is not regex("No updates found")
         - patch_jsonlist.blocked_update_list is not defined
     
+    - name: "Block to perepare the final report"
+      block:
+        - name: "Build patch info text file"
+          shell: "cat /tmp/temp-patchlist6.txt | grep -Ev '^$' | xargs zypper patch-info > /tmp/temp-patchlistinfo.txt"
     
-    - name: "Build patch info text file"
-      shell: "cat /tmp/temp-patchlist6.txt | grep -Ev '^$' | xargs zypper patch-info > /tmp/temp-patchlistinfo.txt"
-
-    - name: "Convert patchListsInfo TxT to JSON"
-      ansible.builtin.script: "/root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
-      args:
-        executable: python3
+        - name: "Convert patchListsInfo TxT to JSON"
+          ansible.builtin.script: "/root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
+          args:
+            executable: python3
+      when: patch_jsonlist is defined
 
 ##Stage 4 starts
-
-    - name: "Generate Advisory/ Errata data CSV 1/2"
-      ansible.builtin.script: "/root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
-      args:
-        executable: python3
-      with_together:
-        - "{{ package_jsonlist | json_query('update[*].name')}}"
-        - "{{ package_jsonlist | json_query('update[*].edition')}}"
-        - "{{ package_jsonlist | json_query('update[*].edition_old')}}"
-        - "{{ package_jsonlist | json_query('update[*].arch')}}"
-      no_log: true
-
-    - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
-      ansible.builtin.script: "/root/SUSE/reporting/csv2json.py"
-      args:
-        executable: python3
-
-    - name: "Fetch host patch metadata from target machines"
-      ansible.builtin.fetch:
-        src: "/tmp/errata.json"
-        dest: /tmp/{{inventory_hostname}}_errata.json
-        validate_checksum: no
-        flat: true
+    - name: "Run the block for Prep the Reports"
+      block:
+        - name: "Generate Advisory/ Errata data CSV 1/2"
+          ansible.builtin.script: "/root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
+          args:
+            executable: python3
+          with_together:
+            - "{{ package_jsonlist | json_query('update[*].name')}}"
+            - "{{ package_jsonlist | json_query('update[*].edition')}}"
+            - "{{ package_jsonlist | json_query('update[*].edition_old')}}"
+            - "{{ package_jsonlist | json_query('update[*].arch')}}"
+          no_log: true
     
-    - name: "Load JSON errata variables"
-      include_vars: 
-        file: "/tmp/{{inventory_hostname}}_errata.json"
-        name: errata
-      delegate_to: 'localhost'
-
+        - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
+          ansible.builtin.script: "/root/SUSE/reporting/csv2json.py"
+          args:
+            executable: python3
+          no_log: true
+    
+        - name: "Fetch host patch metadata from target machines"
+          ansible.builtin.fetch:
+            src: "/tmp/errata.json"
+            dest: /tmp/{{inventory_hostname}}_errata.json
+            validate_checksum: no
+            flat: true
+        
+        - name: "Load JSON errata variables"
+          include_vars: 
+            file: "/tmp/{{inventory_hostname}}_errata.json"
+            name: errata
+          delegate_to: 'localhost'
+          no_log: true
+      ignore_errors: true
     #    - name: "Load JSON errata variables"
     #      include_vars: 
     #        file: "/tmp/errata.json"
     #        name: errata
 
 ##Stage 5
-    - name: "Check if lsof reboot validation dep is present"
-      zypper:
-        name: lsof
-        state: present
-
-    - name: "Validate for pending reboots"
-      shell: "zypper ps -s"
-      register: validate_reboot
-
-    - name: "Override Reboot Required var vaule"
-      set_fact:
-        reboot_required: "true"
-      when: validate_reboot is regex("Reboot is suggested")
-
-    - name: "Is reboot needed"
-      debug:
-        var: reboot_required
-
+    - name: "Block to Manage Reboot status"
+      block:
+        - name: "Check if lsof reboot validation dep is present"
+          zypper:
+            name: lsof
+            state: present
+    
+        - name: "Validate for pending reboots"
+          shell: "zypper ps -s"
+          register: validate_reboot
+    
+        - name: "Override Reboot Required var vaule"
+          set_fact:
+            reboot_required: "true"
+          when: validate_reboot is regex("Reboot is suggested")
+    
+        - name: "Is reboot needed"
+          debug:
+            var: reboot_required
+      when: patch_jsonlist is defined
 ##Stage 6 starts
     - name: "Build the Computer report"
       shell: echo "{{inventory_hostname}},{{ansible_nodename}},{{ansible_distribution}},{{ansible_distribution_version}},{{available_pkg.available_pkg_count}},{{available_patch.available_total_patch_count}},{{reboot_required}}" >> "{{csv_CompReport}}"
       delegate_to: localhost
+      ignore_errors: true
       no_log: true
 
     - name: "Build the Patch report"
@@ -258,7 +264,15 @@
         - "{{errata | json_query('*.Category')}}"
         - "{{errata | json_query('*.Arch')}}"
       delegate_to: localhost
+      ignore_errors: true
       no_log: true
+
+    - name: "Print if no updates available"
+      debug:
+        msg: "No Updates available"
+      when:
+        - reg_update_check is not regex("No updates found")
+        - reg_update_check is not failed
 
   post_tasks:
     - name: "Wipe Caches AND TempFiles"
@@ -271,4 +285,5 @@
         - temp-patchlistinfo.json
         - temp-patchlistinfo.txt
         - temp-patchlist6.txt
+      no_log: true
 ...
