@@ -34,14 +34,17 @@ And Many More ....
 ## Reports
 1. Patch Scan Target level Summary\n
    
-![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/adfc7dcb-5cb2-44d3-8c35-075d01e29ab1)
+![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/4b5d6813-eca5-4e97-b61f-c6a9bb969d47)
+
 
 2. Patch Scan report along with Category and severity
 
-![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/ac4b1b06-711a-46b5-9279-e4740dc992c7)
+![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/0b986cde-8128-4d3d-94a6-1fbcba8a3566)
+
 
 3. Patch Deployment Target Level Summary
 
-![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/6a503ee2-355e-4c7a-aedb-c8e76febc6f2)
+![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/8977f4ba-0bd6-479b-83ca-3e9103d9bf14)
+
 
 
