@@ -13,10 +13,11 @@
 4. Indepth info on each Update / Patch along with Errata or advisory
 5. CSV Report File
 6. JSON Data Structures to Upload and work with API.
-7. Uses Python so not Agents or extra pre-req needed in most of the cases.
+7. Uses Python so no Agents or extra pre-req needed in most of the cases.
 8. Open Source - FREE / Freedom of Software
 9. Patch and Target Level Summary reports.
 10. Fast like the Falcon
+11. Reboot Validations
 
 And Many More ....
 
