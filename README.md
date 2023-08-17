@@ -30,10 +30,13 @@ And Many More ....
 | Patch Deploy      | Y  | Y  | Y  | Y  |  Y   |
 
 ## Reports
+1. 
 ![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/adfc7dcb-5cb2-44d3-8c35-075d01e29ab1)
 
+2.
 ![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/ac4b1b06-711a-46b5-9279-e4740dc992c7)
 
+3.
 ![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/6a503ee2-355e-4c7a-aedb-c8e76febc6f2)
 
 
