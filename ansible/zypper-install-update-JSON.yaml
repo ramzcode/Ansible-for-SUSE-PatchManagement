@@ -9,7 +9,9 @@
     - matches: '0'
     - any_error: false
     - patch_list:
-        - libre2-8-0
+        - vim
+        - which
+        - xz
     - update_payload:
         received_updates: "{{ patch_list | length | int }}"
     - applied_facts:
@@ -78,6 +80,7 @@
         args:
           executable: /bin/bash
         register: update_pkgs_logs
+        no_log: true
   
       - name: "Create Var"
         set_fact:
@@ -88,10 +91,10 @@
       - name: "Execute Python script"
         script: /root/SUSE/applied_updates.py "{{ update_facts.todays_updates }}" "{{ patch_list }}"
         args:
-          executable: python3
+          executable: python3.6
         register: script_output
   
-      - name: "Update Applied updates fact"
+      - name: "Update, Applied updates fact"
         set_fact:
           applied_facts:
             applied_updates: "{{script_output | json_query('stdout_lines[0]')| regex_replace('^Total_matches: ', '') | int}}"
@@ -128,6 +131,7 @@
       zypper:
         name: lsof
         state: present
+      no_log: true
     
     - name: "Validate for pending reboots"
       shell: "zypper ps -s"
@@ -152,6 +156,7 @@
         - update_pkgs_logs is defined
       register: status
       ignore_errors: true
+      no_log: true
 
 ##Stage 6
     - name: "Build the Computer report"
