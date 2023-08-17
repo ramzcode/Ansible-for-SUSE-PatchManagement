@@ -96,16 +96,19 @@
         #zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
       register: list_patch
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
     - name: "Create_JSON for patches 1/2"
       set_fact:
         list_patches: "{{list_patch.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
     - name: "Create_FinalJSON for PatchList 2/2"
       set_fact:
         patch_jsonlist: "{{list_patches.stream.update_status}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
           #    - name: "Create the JSON fill for conversion"
           #      copy:
@@ -271,7 +274,7 @@
       debug:
         msg: "No Updates available"
       when:
-        - reg_update_check is not regex("No updates found")
+        - reg_update_check is regex("No updates found")
         - reg_update_check is not failed
 
   post_tasks:
