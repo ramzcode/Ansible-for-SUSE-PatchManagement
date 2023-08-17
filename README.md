@@ -32,7 +32,7 @@ And Many More ....
 | Patch Deploy      | Y  | Y  | Y  | Y  |  Y   |
 
 ## Reports
-1. Patch Scan Target level Summary 
+1. Patch Scan Target level Summary
 ![image](https://github.com/ramzcode/Ansible-for-SUSE-PatchManagement/assets/76745955/adfc7dcb-5cb2-44d3-8c35-075d01e29ab1)
 
 2. Patch Scan report along with Category and severity
