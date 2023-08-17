@@ -52,6 +52,7 @@
         #zypper lu | sed -ne '/Reading installed packages.../,$ p' | sed '1,3d' | awk -F '|' '{ print $3, $4, $5, $6 }'
       register: list_package
       when: reg_update_check is not regex("No updates found")
+      no_log: true
     
         #    ##Need "xmltodict" pip install xmltodict
         #    - name: "debug"
@@ -62,6 +63,7 @@
       set_fact:
         list_pkg: "{{list_package.stdout | ansible.utils.from_xml | replace('update-status','update_status') | replace('update-list','update_list') | replace('@','') | replace('edition-old','edition_old')}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
           #    - name: "debug"
           #      debug:
@@ -71,6 +73,7 @@
       set_fact:
         package_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
     - name: "set available Pkg var"
       set_fact:
@@ -96,16 +99,19 @@
         #zypper lp --with-optional | sed -ne '/Reading installed packages.../,$ p' | sed '/^$/d' | sed '1,4d' | sed -e '/The following updates are also available:/,+2d' | sed -e '/^Found/,$d' | awk -F '|' '{ print $2, $3, $4, $8}'
       register: list_patch
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
     - name: "Create_JSON for patches 1/2"
       set_fact:
         list_patches: "{{list_patch.stdout | ansible.utils.from_xml | replace('-','_') | replace('@','')}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
     - name: "Create_FinalJSON for PatchList 2/2"
       set_fact:
         patch_jsonlist: "{{list_patches.stream.update_status}}"
       when: reg_update_check is not regex("No updates found")
+      no_log: true
 
           #    - name: "Create the JSON fill for conversion"
           #      copy:
@@ -184,7 +190,7 @@
         - name: "Convert patchListsInfo TxT to JSON"
           ansible.builtin.script: "/root/SUSE/TXT2JSON-ConverterForPatchInfo.py > /tmp/temp-patchlistinfo.json"
           args:
-            executable: python3
+            executable: python3.6
       when: patch_jsonlist is defined
 
 ##Stage 4 starts
@@ -193,7 +199,7 @@
         - name: "Generate Advisory/ Errata data CSV 1/2"
           ansible.builtin.script: "/root/SUSE/scrapeThePatchJSON-testforregex-advanced.py {{item.0}} {{item.1}} {{item.2}} {{item.3}}"
           args:
-            executable: python3
+            executable: python3.6
           with_together:
             - "{{ package_jsonlist | json_query('update[*].name')}}"
             - "{{ package_jsonlist | json_query('update[*].edition')}}"
@@ -204,7 +210,7 @@
         - name: "Convert Advisory/ Errata data CSV to JSON 2/2"
           ansible.builtin.script: "/root/SUSE/reporting/csv2json.py"
           args:
-            executable: python3
+            executable: python3.6
           no_log: true
     
         - name: "Fetch host patch metadata from target machines"
@@ -233,10 +239,12 @@
           zypper:
             name: lsof
             state: present
+          no_log: true
     
         - name: "Validate for pending reboots"
           shell: "zypper ps -s"
           register: validate_reboot
+          nog_log: true
     
         - name: "Override Reboot Required var vaule"
           set_fact:
@@ -271,7 +279,7 @@
       debug:
         msg: "No Updates available"
       when:
-        - reg_update_check is not regex("No updates found")
+        - reg_update_check is regex("No updates found")
         - reg_update_check is not failed
 
   post_tasks:
