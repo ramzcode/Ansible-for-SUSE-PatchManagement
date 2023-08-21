@@ -14,4 +14,8 @@
 6. ./rmt-client-setup --host rmtserver.ramzcode.com  ## Answer Y to question or pass CLI parameter to use within a script
 7. SUSEConnect -s
 8. zypper ref
+> [!NOTE]
+> Make sure only needed products and Architecture is selected
 
+> [!WARNING]
+> If the repo dir storage is not planned well, you may end up with full utlilized disk and a data loss which we are not responsible.
