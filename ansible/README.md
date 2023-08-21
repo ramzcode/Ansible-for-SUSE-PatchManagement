@@ -1,13 +1,13 @@
 # SUSE RMT based repo Sync client activation
 ## How it works
 1. Setup RMT
-    a. sudo zypper in rmt-server or zypper install rmt-server yast2-rmt nginx mariadb
-    b. systemctl enable --now mariadb
-    c. sudo yast2 rmt
-    d. chown -R _rmt:nginx /usr/share/rmt/config
+a. sudo zypper in rmt-server or zypper install rmt-server yast2-rmt nginx mariadb
+b. systemctl enable --now mariadb
+c. sudo yast2 rmt
+d. chown -R _rmt:nginx /usr/share/rmt/config
 2. Activate RMT using the Mirror Credentials from the SCC portal and the add product / Sync / mirror
-    a. rmt-cli sync
-    b. rmt-cli mirror
+a. rmt-cli sync
+b. rmt-cli mirror
 3. copy the rmt-client-setup from the RMT server to the clients - /usr/share/rmt/public/tools/
 4. SUSEConnect -d
 5. SUSEConnect --cleanup
