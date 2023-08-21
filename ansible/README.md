@@ -15,8 +15,8 @@
 7. SUSEConnect -s
 8. zypper ref
 > [!NOTE]
-> Make sure only needed products and Architecture is selected
-> To use a different Filesystem or mount point as the repo data path please use - ln -sfn TARGET /usr/share/rmt/public/repo
+> * Make sure only needed products and Architecture is selected
+> * To use a different Filesystem or mount point as the repo data path please use - ln -sfn TARGET /usr/share/rmt/public/repo
 
 > [!WARNING]
 > If the repo dir storage is not planned well, you may end up with full utlilized disk and a data loss which we are not responsible.
