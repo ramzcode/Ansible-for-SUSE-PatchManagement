@@ -227,6 +227,7 @@
           delegate_to: 'localhost'
           no_log: true
       ignore_errors: true
+      when: reg_update_check is not regex("No updates found")
     #    - name: "Load JSON errata variables"
     #      include_vars: 
     #        file: "/tmp/errata.json"
