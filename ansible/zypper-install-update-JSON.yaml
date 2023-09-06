@@ -9,9 +9,7 @@
     - matches: '0'
     - any_error: false
     - patch_list:
-        - vim
-        - which
-        - xz
+        - libprotobuf-c1
     - update_payload:
         received_updates: "{{ patch_list | length | int }}"
     - applied_facts:
