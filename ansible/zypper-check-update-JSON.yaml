@@ -43,6 +43,7 @@
       shell: |
         zypper refresh && zypper lu
       register: reg_update_check
+      no_log: true
 
 ##STAGE 1 Starts
 
@@ -74,6 +75,38 @@
         package_jsonlist: "{{list_pkg.stream.update_status.update_list}}"
       when: reg_update_check is not regex("No updates found")
       no_log: true
+
+    - name: "GetJSON type"
+      debug:
+        msg: "{{package_jsonlist['update'] | type_debug}}"
+
+    - name: "Set Type"
+      set_fact:
+        json_type: "{{package_jsonlist['update'] | type_debug}}"
+
+    - name: Debug
+      debug:
+        msg: "{{json_type}}"
+
+
+    - name: "Rebuild packlist if single update"
+      set_fact:
+        package_jsonlist:
+          update:
+            - arch: "{{package_jsonlist['update'].arch}}"
+              edition: "{{package_jsonlist['update'].edition}}"
+              edition_old: "{{package_jsonlist['update'].edition_old}}"
+              kind: "{{package_jsonlist['update'].kind}}"
+              name: "{{package_jsonlist['update'].name}}"
+      when: json_type == "dict"
+
+    - name: "GetJSON type"
+      debug:
+        msg: "{{package_jsonlist['update'] | type_debug}}"
+
+    - name: debug
+      debug:
+        var: package_jsonlist
 
     - name: "set available Pkg var"
       set_fact:
@@ -120,6 +153,41 @@
           #
           #    - name: "Restructure the JSON"
           #      shell: python3 /root/SUSE/JSON-converter-NEW.py
+
+    - name: "GetJSON type"
+      debug:
+        msg: "{{patch_jsonlist.update_list['update']}}"
+
+    - name: "Set Type"
+      set_fact:
+        json_type: "{{patch_jsonlist.update_list['update'] | type_debug}}"
+
+    - name: Debug
+      debug:
+        msg: "{{json_type}}"
+
+
+    - name: "Rebuild patchlist if single patchlist"
+      set_fact:
+        patch_jsonlist:
+          update_list:
+            update:
+              - arch: "{{patch_jsonlist.update_list['update'].arch}}"
+                category: "{{patch_jsonlist.update_list['update'].category}}"
+                kind: "{{patch_jsonlist.update_list['update'].kind}}"
+                name: "{{patch_jsonlist.update_list['update'].name}}"
+                restart: "{{patch_jsonlist.update_list['update'].restart}}"
+                severity: "{{patch_jsonlist.update_list['update'].severity}}"
+                status: "{{patch_jsonlist.update_list['update'].status}}"
+      when: json_type == "dict"
+
+    - name: "GetJSON type"
+      debug:
+        msg: "{{patch_jsonlist['update'] | type_debug}}"
+
+          #$    - name: debug
+          #$      debug:
+          #$        var: package_jsonlist
 
     - name: "set available Patch var"
       set_fact:
@@ -227,6 +295,7 @@
           delegate_to: 'localhost'
           no_log: true
       ignore_errors: true
+      when: reg_update_check is not regex("No updates found")
     #    - name: "Load JSON errata variables"
     #      include_vars: 
     #        file: "/tmp/errata.json"
@@ -244,7 +313,7 @@
         - name: "Validate for pending reboots"
           shell: "zypper ps -s"
           register: validate_reboot
-          nog_log: true
+          no_log: true
     
         - name: "Override Reboot Required var vaule"
           set_fact:
