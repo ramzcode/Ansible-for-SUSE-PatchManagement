@@ -28,8 +28,8 @@ And Many More ....
 | Automation        | SLES 15.4   | SLES 15.5   | OpenSUSE 15.4   | OpenSUSE 15.5  | SLES 12.5  | SLES 15.5 SAP |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | RMT Repo Sync     | Y  | Y  |    |   |   Y  | Y |
-| Patch Scan        | Y  | Y  | Y  | Y  |  Y   |  |
-| Patch Deploy      | Y  | Y  | Y  | Y  |  Y   |  |
+| Patch Scan        | Y  | Y  | Y  | Y  |  Y   | Y |
+| Patch Deploy      | Y  | Y  | Y  | Y  |  Y   | Y |
 
 ## Reports
 1. Patch Scan Target level Summary\n
